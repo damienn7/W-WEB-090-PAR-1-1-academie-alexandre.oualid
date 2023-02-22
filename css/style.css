@@ -1,0 +1,50 @@
+.logos{
+    width: 26.25px;
+    height: 26.25px;
+    padding-right: 5%;
+    display: inline-block;
+}
+
+#oiseaulogo{
+    padding: 0px;
+}
+.container{
+    margin-left: 5%;
+    width: 15%;
+    border-right: solid 1px lightgray;
+    height: 900px;
+}
+.row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.row a span{
+    display: inline-block; 
+    vertical-align: middle;
+}
+.row a{
+    text-decoration: none;  
+    padding: 5px;
+    border-bottom-left-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px
+}
+.row a:hover{
+    background-color: gainsboro;
+}
+#Tweeter{
+    padding: 6px;
+    padding-right: 25px;
+    padding-left: 25px;
+    color: white;
+    background-color: rgb(0, 140, 255);
+    border-bottom-left-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px
+}
+
+#Tweeter:active{
+    background-color: rgb(19, 75, 205);
+}
