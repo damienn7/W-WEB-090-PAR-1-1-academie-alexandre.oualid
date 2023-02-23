@@ -58,7 +58,7 @@
             $stmt->bindParam(':city', $city);
 
             $stmt->execute();
-            header("Location: /html/index.html");
+            header("Location: connexion.php");
         } catch (Exception $e) {
             echo "Une erreur est survenue veuillez remplir le formulaire correctement.";
             die('Erreur : ' . $e->getMessage());
