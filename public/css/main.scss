@@ -1,0 +1,817 @@
+@use 'base';
+@use 'grid';
+@use 'btn';
+@use 'color';
+@use 'img';
+@use 'alert';
+@use 'hidden';
+@use 'navbar';
+@use 'modal';
+
+.row {
+    @extend %row;
+    @include grid.flex(100%, 0);
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.container {
+    // width: 100%;
+    // padding-top: 0;
+    // padding-right: 1.5rem;
+    // padding-left: 1.5rem;
+    @include grid.container;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-top: 0;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.col {
+    flex: 1 0 0%;
+}
+
+.col-auto {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.col-1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+}
+
+.col-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+}
+
+.col-3 {
+    flex: 0 0 auto;
+    width: 25%;
+}
+
+.col-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+
+.col-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+}
+
+.col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.col-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+}
+
+.col-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+}
+
+.col-9 {
+    flex: 0 0 auto;
+    width: 75%;
+}
+
+.col-10 {
+    flex: 0 0 auto;
+    width: 83.33333333%;
+}
+
+.col-11 {
+    flex: 0 0 auto;
+    width: 91.66666667%;
+}
+
+.col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+//   color buttons
+
+.btn {
+    @include btn.btn($font-weight: 600);
+}
+
+.btn.active,
+.btn:active {
+    @include btn.btn($bg: color.$dark-active, $color: color.$transparent-active, $border-color: color.$transparent);
+    transition: 0.3s;
+}
+
+.btn:disabled,
+.disabled {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.btn-primary {
+    background-color: color.$primary;
+    color: color.$white;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    @include btn.btn($font-weight: 600, $bg: color.$primary-active, $color: color.$primary, $border-color: color.$primary);
+    transition: 0.3s;
+}
+
+.btn-danger {
+    background-color: color.$danger;
+    color: color.$white;
+}
+
+.btn-danger:active,
+.btn-danger.active {
+    @include btn.btn($font-weight: 600, $bg: color.$danger-active, $color: color.$danger, $border-color: color.$danger);
+    transition: 0.3s;
+}
+
+.btn-info {
+    background-color: color.$info;
+    color: color.$white;
+    box-shadow: rgb(130, 138, 145);
+}
+
+.btn-info:active,
+.btn-info.active {
+    @include btn.btn($font-weight: 600, $bg: color.$info-active, $color: color.$info, $border-color: color.$info);
+    transition: 0.3s;
+}
+
+.btn-blue-twitter {
+    background-color: color.$blue-twitter;
+    color: color.$white;
+    box-shadow: rgb(130, 138, 145);
+}
+
+.btn-blue-twitter:active,
+.btn-blue-twitter.active {
+    @include btn.btn($font-weight: 600, $bg: color.$blue-twitter-active, $color: color.$blue-twitter, $border-color: color.$blue-twitter);
+    transition: 0.3s;
+}
+
+.btn-orange-leboncoin {
+    background-color: color.$orange-leboncoin;
+    color: color.$white;
+}
+
+.btn-orange-leboncoin:active,
+.btn-orange-leboncoin.active {
+    @include btn.btn($font-weight: 600, $bg: color.$orange-leboncoin-active, $color: color.$orange-leboncoin, $border-color: color.$orange-leboncoin);
+    transition: 0.3s;
+}
+
+.btn-success {
+    background-color: color.$success;
+    color: color.$white;
+}
+
+.btn-success:active,
+.btn-success.active {
+    @include btn.btn($font-weight: 600, $bg: color.$success-active, $color: color.$success, $border-color: color.$success);
+    transition: 0.3s;
+}
+
+.btn-white {
+    background-color: color.$white;
+    color: color.$dark;
+}
+
+.btn-white:active,
+.btn-white.active {
+    @include btn.btn($font-weight: 600, $bg: color.$white-active, $color: color.$white, $border-color: color.$white);
+    transition: 0.3s;
+}
+
+.btn-dark {
+    background-color: color.$dark;
+    color: color.$white;
+}
+
+.btn-dark:active,
+.btn-dark.active {
+    @include btn.btn($font-weight: 600, $bg: color.$dark-active, $color: color.$dark, $border-color: color.$dark);
+    transition: 0.3s;
+}
+
+.btn-info:hover,
+.btn-primary:hover,
+.btn-danger:hover,
+.btn-blue-twitter:hover,
+.btn-dark:hover,
+.btn-orange-leboncoin:hover,
+.btn-success:hover,
+.btn-white:hover {
+    -webkit-filter: brightness(90%);
+    transition: 0.3s;
+}
+
+// background color
+
+.bg-danger {
+    background-color: color.$danger;
+}
+
+.bg-primary {
+    background-color: color.$primary;
+}
+
+.bg-info {
+    background-color: color.$info;
+}
+
+.bg-success {
+    background-color: color.$success;
+}
+
+.bg-blue-twitter {
+    background-color: color.$blue-twitter;
+}
+
+.bg-orange-leboncoin {
+    background-color: color.$orange-leboncoin;
+}
+
+.bg-white {
+    background-color: color.$white;
+}
+
+.bg-blue-facebook {
+    background-color: color.$blue-facebook;
+    color: color.$white;
+    box-shadow: rgb(130, 138, 145);
+}
+
+// text color
+
+.text-white {
+    color: color.$white;
+}
+
+.text-error {
+    color: color.$danger;
+}
+
+.text-dark {
+    color: color.$dark;
+}
+
+.text-blue-twitter {
+    color: color.$blue-twitter;
+}
+
+.text-blue-facebook {
+    color: color.$blue-facebook;
+}
+
+.text-orange-leboncoin {
+    color: color.$orange-leboncoin;
+}
+
+.text-success {
+    color: color.$success;
+}
+
+.text-muted {
+    color: color.$dark;
+    opacity: 0.65;
+    font-weight: 600;
+}
+
+//images reponsive
+
+.img-responsive {
+    @include img.img($responsive: 100%);
+}
+
+.img-rounded {
+    @include img.img($rounded: 50%);
+}
+
+.img-thumbnail {
+    @include img.img-thumbnail($color: color.$dark-active);
+}
+
+.img-blur {
+    @include img.img($blur: blur(1.5rem), $responsive: 100%);
+}
+
+.img-icon{
+    @include img.img-icon();
+}
+
+// alert -> .alert-success, alert-info, .alertwarning et .alter-danger
+
+.alert-success {
+    @include alert.alert(color.$success, color.$success-active, color.$white);
+}
+
+.alert-info {
+    @include alert.alert(color.$info, color.$info-active, color.$white);
+}
+
+.alert-warning {
+    @include alert.alert(color.$warning, color.$warning-active, color.$white);
+}
+
+.alert-danger {
+    @include alert.alert(color.$danger-active, color.$danger, color.$white);
+}
+
+.alert {
+    @include alert.alert();
+}
+
+// hidden && visible for elements on differents device screen width
+
+.hidden-xxl {
+    @include hidden.hide_show("xxl", hidden);
+}
+
+.hidden-xl {
+    @include hidden.hide_show("xl", hidden);
+}
+
+.hidden-lg {
+    @include hidden.hide_show("lg", hidden);
+}
+
+.hidden-md {
+    @include hidden.hide_show("md", hidden);
+}
+
+.hidden-sm {
+    @include hidden.hide_show("sm", hidden);
+}
+
+.visible-xxl {
+    @include hidden.hide_show("xxl");
+}
+
+.visible-xl {
+    @include hidden.hide_show("xl");
+}
+
+.visible-lg {
+    @include hidden.hide_show("lg");
+}
+
+.visible-md {
+    @include hidden.hide_show("md");
+}
+
+.visible-sm {
+    @include hidden.hide_show("sm");
+}
+
+.visible-print {
+    @include hidden.hide_show();
+}
+
+.hidden-print {
+    @include hidden.hide_show("", hidden);
+}
+
+// NAVBAR
+
+.navbar {
+    @include navbar.navbar($bg: color.$white);
+}
+
+.navbar-nav {
+    @include navbar.navbar($bg: color.$white);
+    // @extend %row;
+}
+
+.navbar-dark {
+    background-color: color.$dark-active;
+}
+
+.nav-item {
+    list-style: none;
+    margin: 0 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: color.$dark;
+}
+
+$sm: 540px;
+$md: 720px;
+$lg: 960px;
+$xl: 1140px;
+$xxl: 1320px;
+
+@media (min-width:1320px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: $xxl) {
+    .navbar-nav {
+        flex-direction: row;
+        max-width: $xl;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: $xl) {
+    .navbar-nav {
+        flex-direction: row;
+        max-width: $lg;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: $lg) {
+    .navbar-nav {
+        flex-direction: row;
+        max-width: $md;
+        width: 100%;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: $md) {
+
+    .navbar-collapse {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        max-width: $sm;
+        margin: auto;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+
+    .navbar-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .nav-item {
+        padding: 0.65rem 0;
+        display: inline-block;
+    }
+
+    
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+@media (max-width: $sm) {
+
+    .navbar-collapse {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar-nav {
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+
+    .navbar-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .nav-item {
+        padding: 0.65rem 0;
+        display: inline-block;
+    }
+
+    .dropdown {
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown-menu{
+        position: absolute;
+        display: flex;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: white;
+        opacity: 0.9;
+        top: 2.5rem;
+        z-index: 1000;
+    }
+}
+
+.dropdown-item{
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-toggler {
+    @include navbar.navbar-toggler(color.$info-rgba-url, $background: color.$white);
+}
+
+.navbar-toggler:hover {
+    @include navbar.navbar-toggler(color.$info-rgba-url, $background: color.$white-active);
+}
+
+.navbar-brand {
+    width: 2.5em;
+    height: 2.5em;
+    background-color: color.$blue-facebook;
+}
+
+//modal
+
+.modal{
+    @include modal.modal();
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin:0.5rem;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .btn-close {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em 0.25em;
+    color: #000;
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    border: 0;
+    border-radius: 0.375rem;
+    opacity: 0.5;
+  }
+  .btn-close:hover {
+    color: #000;
+    text-decoration: none;
+    opacity: 0.75;
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+
+  .modal-content{
+    padding: 2.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 250px;
+    color: black;
+    pointer-events: auto;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+    outline: 0;
+    opacity: 1;
+    justify-content: space-between;
+    z-index: 1100;
+  }
+
+  .modal-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+  }
+
+  .modal-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+  }
+
+  .modal-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    padding-top: 0.5rem;
+  }
+
+  .banner{
+    position: fixed;
+    z-index: 1000;
+    height: 80px;
+    width: 100vw;
+    bottom: 0;
+    left:0;
+    right: 0;
+    background-color: color.$blue-twitter;
+  }
+
+  .login{
+    justify-content: center;
+  }
+
+//   .blocks{
+//     border-right: 1px solid color.$blue-twitter;
+//     border-left: 1px solid color.$blue-twitter;
+//   }
+
+  .middle{
+    // position: absolute;
+    margin: auto;
+    margin-bottom: 80px;
+  }
+
+  header{
+    position: fixed;
+    left:auto;
+    top:0;
+  }
+
+  footer{
+    position: fixed;
+    right:5%;
+    top:0;
+    width: 20%;
+  }
