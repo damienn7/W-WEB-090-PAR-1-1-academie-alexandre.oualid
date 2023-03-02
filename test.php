@@ -1,18 +1,13 @@
 <?php
-session_start();//reprend la session ouverte
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
 
     $tweet = $_POST["tweet"];
-    $id = $_SESSION["id"];
 
-    // echo "Bonjour";
-    // var_dump($_SESSION);
     include("conn.php");
-
     try{
+        $id = 6;
         $sql = "INSERT INTO tweet(id_user,message) VALUES (:id,:tweet)";
+
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':tweet', $tweet,PDO::PARAM_STR_CHAR);
         $stmt->bindParam(':id', $id,PDO::PARAM_INT);
@@ -22,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
         die('Erreur : ' . $e->getMessage());
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,91 @@
+$sm: 540px;
+$md: 720px;
+$lg: 960px;
+$xl: 1140px;
+$xxl: 1320px;
+
+@mixin hide_show($screen: "", $action: visible) {
+
+
+    @if $screen =="xxl" {
+        @media (max-width: $xxl) {
+            @if $action ==visible {
+                display:"";
+                visibility: visible !important;
+            }
+
+            @else if $action ==hidden {
+                display:none;
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @else if $screen =="xl" {
+        @media (max-width: $xl) {
+            @if $action ==visible {
+                display:"";
+                visibility: visible !important;
+            }
+
+            @else if $action ==hidden {
+                display:none;
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @else if $screen =="lg" {
+        @media (max-width: $lg) {
+            @if $action ==visible {
+                display:"";
+                visibility: visible !important;
+            }
+
+            @else if $action ==hidden {
+                display:none;
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @else if $screen =="md" {
+        @media (max-width: $md) {
+            @if $action ==visible {
+                display:"";
+                visibility: visible !important;
+            }
+
+            @else if $action ==hidden {
+                display:none;
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @else if $screen =="sm" {
+        @media (max-width: $sm) {
+            @if $action ==visible {
+                display:"";
+                visibility: visible !important;
+            }
+
+            @else if $action ==hidden {
+                display:none;
+                visibility: hidden !important;
+            }
+        }
+    
+    } @else{
+        @media print {
+            @if $action == "visible"{
+                display:"";
+                visibility: visible !important;
+            } @else if $action == "hidden" {
+                display:none;
+                visibility: hidden !important;
+            }
+          }
+          
+    }
+}

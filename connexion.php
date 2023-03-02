@@ -41,7 +41,7 @@
                 $_SESSION['logged_in'] = true;
                 $_SESSION['username'] = $username;
                 $_SESSION['id'] = $row["id"];
-                header('Location: index.php');
+                header('Location: /public/index.php');
             } else {
                 echo "Mot de passe incorrect";
             }
