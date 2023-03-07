@@ -1,27 +1,35 @@
-<footer class="col blocks">
+<footer class="col blocks blur">
+
+
     <h1>Se connecter</h1>
-    <form action="../public/index.php" method="post" class="login row">
+    <div class="row">
         <div class="col-6">
-            <button class="btn btn-blue-twitter" type="submit" id="login" name="login">Connexion</button>
+            <button class="btn btn-blue-twitter" name="login" data-toggle="modal" id="login"
+                data-target="#login-modal">Connexion</button>
         </div>
         <div class="col-6">
-            <button class="btn btn-blue-twitter" type="submit" id="register" name="register">Inscription</button>
+            <button class="btn btn-blue-twitter" id="register" name="register" data-toggle="modal"
+                data-target="#register-modal">Inscription</button>
         </div>
-    </form>
+    </div>
+
 </footer>
-<div class="banner">
-
-    <form action="../public/index.php" method="post" class="login container-fluid row">
+<!-- 
+<div class="banner blur">
+    <div class=" login container-fluid row">
 
         <div class="col-2">
-            <button class="btn btn-blue-twitter" type="submit" id="login" name="login">Connexion</button>
+            <button class="btn btn-blue-twitter" id="login2" name="login" data-toggle="modal"
+                data-target="#login-modal">Connexion</button>
         </div>
         <div class="col-2">
-            <button class="btn btn-blue-twitter" type="submit" id="register" name="register">Inscription</button>
+            <button class="btn btn-blue-twitter" id="register2" name="register" data-toggle="modal"
+                data-target="#register-modal">Inscription</button>
         </div>
-    </form>
+    </div>
 </div>
-</div>
+</div> -->
+
 
 </body>
 

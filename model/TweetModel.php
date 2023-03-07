@@ -15,21 +15,7 @@ class TweetModel
 
     public function setTweet($data)
     {
-        try {
-            $query = "insert into tweet(id_user,message,date_send,id_reply_tweet) values(:id_user,:message,:date_send);";
-            $db = new DatabaseModel();
-            $db=$db->pdo;
-            $statement=$db->prepare($query);
-            $statement->bindParam("id_user",$data["id_user"],\PDO::PARAM_INT);
-            $statement->bindParam("id_user",$data["message"],\PDO::PARAM_STR);
-            $statement->bindParam("id_user",$data["date_send"],\PDO::PARAM_INT);
-            $statement->execute();
-            $tweet=$statement->fetch();
-        } catch (\Exception $e) {
-            die("Erreur : ".$e->getMessage());
-        }
 
-        return $tweet;
 
     }
 
@@ -53,7 +39,7 @@ class TweetModel
     public function getTweets()
     {
         try {
-            $query = "select * from tweet limit 80;";
+            $query = "select * from tweet order by id desc limit 80;";
             $db = new DatabaseModel();
             $db=$db->pdo;
             $statement=$db->prepare($query);
