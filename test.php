@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
 
     include("conn.php");
     try{
-        $id = 6;
+        $id = 1;
         $sql = "INSERT INTO tweet(id_user,message) VALUES (:id,:tweet)";
 
         $stmt = $conn->prepare($sql);

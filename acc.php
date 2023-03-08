@@ -7,8 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
     $tweet = $_POST["tweet"];
     $id = $_SESSION["id"];
 
-    // echo "Bonjour";
-    // var_dump($_SESSION);
     include("conn.php");
 
     try{

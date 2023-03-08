@@ -13,23 +13,20 @@ class TweetModel
 
     private $date_send;
 
-    public function setTweet($data)
+    public function setTweet($id,$tweet)
     {
-        try {
-            $query = "insert into tweet(id_user,message,date_send,id_reply_tweet) values(:id_user,:message,:date_send);";
+        try{
+            $sql = "INSERT INTO tweet(id_user,message) VALUES (:id,:tweet)";
             $db = new DatabaseModel();
             $db=$db->pdo;
-            $statement=$db->prepare($query);
-            $statement->bindParam("id_user",$data["id_user"],\PDO::PARAM_INT);
-            $statement->bindParam("id_user",$data["message"],\PDO::PARAM_STR);
-            $statement->bindParam("id_user",$data["date_send"],\PDO::PARAM_INT);
-            $statement->execute();
-            $tweet=$statement->fetch();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':tweet', $tweet,\PDO::PARAM_STR_CHAR);
+            $stmt->bindParam(':id', $id,\PDO::PARAM_INT);
+            $stmt->execute();
         } catch (\Exception $e) {
-            die("Erreur : ".$e->getMessage());
+            echo "Une erreur est survenue veuillez remplir le formulaire correctement.";
+            die('Erreur : ' . $e->getMessage());
         }
-
-        return $tweet;
 
     }
 
@@ -53,7 +50,7 @@ class TweetModel
     public function getTweets()
     {
         try {
-            $query = "select * from tweet limit 80;";
+            $query = "select * from tweet order by id desc limit 20;";
             $db = new DatabaseModel();
             $db=$db->pdo;
             $statement=$db->prepare($query);

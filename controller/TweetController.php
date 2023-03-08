@@ -23,4 +23,10 @@ class TweetController
         header('Location: http://localhost:8080/view/' . $location . '.php');
     }
 
+    public function createTweet($id,$tweet){
+        $tweetMessage = new TweetModel();
+        $tweetMessage->setTweet($id,$tweet);
+        
+    }
+
 }
