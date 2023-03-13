@@ -13,7 +13,7 @@
         <label for="username">Username</label>
         <input type="text" name="username" id="username"><br>
         <label for="password">Password</label>
-        <input type="text" name="password" id="password"><br>
+        <input type="password" name="password" id="password"><br>
         <input type="submit" name="submit" id="submit" value="Se connecter">
     </form>
     <?php
@@ -21,7 +21,7 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        include("conn.php");
+        include("connect.php");
 
         // Récupérer l'utilisateur correspondant au nom d'utilisateur
         $sql = "SELECT * FROM users WHERE username = :username";
@@ -40,7 +40,8 @@
                 session_start();
                 $_SESSION['logged_in'] = true;
                 $_SESSION['username'] = $username;
-                header('Location: /html/index.html');
+                $_SESSION['id'] = $row["id"];
+                header('Location:moncompte.php');
             } else {
                 echo "Mot de passe incorrect";
             }

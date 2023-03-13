@@ -1,7 +1,10 @@
 <?php
-
-$user = 'wac209_user';
-$pass = 'wac209';
-$db = new PDO ('mysql:host=64.226.64.80;dbname=twitter_academy_db', $user, $pass);
-
+try{
+    $user = "wac209_user";
+    $mdp = "wac209";
+    $conn = new PDO("mysql:host=www.webacademie-project.tech;dbname=twitter_academy_db", $user, $mdp);
+}
+catch(Exception $e){
+    die('Erreur : ' . $e->getMessage());
+}
 ?>
