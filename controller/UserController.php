@@ -29,15 +29,10 @@ class UserController
         $user = new UserModel();
         $response = $user->getUserByUsername($username);
 
-        // if (is_string($response)) {
-        //     $home = new IndexController();
-        //     $content = $home->renderHomeView("", "Erreur : Username incorrect ... Veuillez reessayer !", "");
-        // } else {
         $salt = "vive le projet tweet_academy";
         $salted_password = $salt . $password;
         $hashed_password = hash('ripemd160', $salted_password);
         if ($hashed_password === $response["password"]) {
-
 
             $_SESSION['logged_in'] = "logged";
             $_SESSION['username'] = $response["username"];
@@ -47,7 +42,9 @@ class UserController
 
         }
 
-        return "ko";
+    return "nok";
+
+
 
     }
 

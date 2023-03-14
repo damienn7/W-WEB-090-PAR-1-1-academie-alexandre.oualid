@@ -1,4 +1,4 @@
-<footer class="col blocks blur">
+<footer class="col blocks blur logout">
 
 
     <h1>Se connecter</h1>
