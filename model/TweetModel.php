@@ -27,7 +27,6 @@ class TweetModel
             echo "Une erreur est survenue veuillez remplir le formulaire correctement.";
             die('Erreur : ' . $e->getMessage());
         }
-
     }
 
     public function getTweet($id)
@@ -50,7 +49,8 @@ class TweetModel
     public function getTweets()
     {
         try {
-            $query = "select * from tweet order by id desc limit 20;";
+            $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", tweet.message as \"message_tweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id limit 10;";
+            //select tweet.id,tweet.message,tweet.date_send as \"date_tweet\", from tweet left outer join tweet as t on tweet.id_retweet = t.id linit 20;
             $db = new DatabaseModel();
             $db=$db->pdo;
             $statement=$db->prepare($query);

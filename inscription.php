@@ -39,9 +39,6 @@
         $birthdate = $_POST["birthdate"];
         $gender = $_POST["gender"];
         $city = $_POST["city"];
-        $avatar = "https://cdn.discordapp.com/attachments/1077191464683048980/1080782875521204274/sans_pp.webp";
-        $banner = "https://cdn.discordapp.com/attachments/1077191464683048980/1080783037127741540/fond_bleu_clair.png";
-
 
         $salt = "vive le projet tweet_academy";
         $password_hash = hash('ripemd160', $salt . $password);
@@ -49,12 +46,10 @@
         include("conn.php");
         try {
 
-            $sql = "INSERT INTO users (banner, avatar, email, password, name, username, birthdate, gender, city)
-                VALUES (:banner, :avatar, :email, :password, :name, :username, :birthdate, :gender, :city)";
+            $sql = "INSERT INTO users (email, password, name, username, birthdate, gender, city)
+                VALUES (:email, :password, :name, :username, :birthdate, :gender, :city)";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':banner', $banner);
-            $stmt->bindParam(':avatar', $avatar);
-            $stmt->bindParam(':email', $email);
+                        $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password_hash);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':username', $username);

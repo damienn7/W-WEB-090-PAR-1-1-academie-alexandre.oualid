@@ -38,10 +38,10 @@
             if ($hashed_password === $row["password"]) {
                 // Mot de passe correct
                 session_start();
-                $_SESSION['logged_user'] = true;
+                $_SESSION['logged_in'] = true;
                 $_SESSION['username'] = $username;
                 $_SESSION['id'] = $row["id"];
-                header('Location: public/index.php');
+                header('Location: index.php');
             } else {
                 echo "Mot de passe incorrect";
             }

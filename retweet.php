@@ -22,6 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
     }
 }
 ?>
-INSERT INTO tweet (id_user, message, id_retweet) 
+<!-- INSERT INTO tweet (id_user, message, id_retweet) 
 SELECT 'ID_DE_L_UTILISATEUR_CONNECTE', message, 'ID_DU_TWEET_ORIGINAL' 
-FROM tweet WHERE id='ID_DU_TWEET_ORIGINAL'
+FROM tweet WHERE id='ID_DU_TWEET_ORIGINAL' -->
