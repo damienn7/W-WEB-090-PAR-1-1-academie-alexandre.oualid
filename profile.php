@@ -1,25 +1,31 @@
 <?php
-include(-'connect.php');
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Connexion à la base de données
+include('connect.php');
 
-// Récupération des informations du profil de l'utilisateur
-$user_id = $_GET['id']; // ID de l'utilisateur passé dans l'URL
-$sql = "SELECT * FROM users WHERE id = $user_id";
+// Récupération de l'ID de l'utilisateur dont on veut afficher le profil
+$user_id = $_GET['user_id'];
+
+// Requête pour extraire les informations de profil de l'utilisateur avec l'ID spécifié
+$sql = "SELECT * FROM `users` WHERE `id`=$user_id";
 $result = $conn->query($sql);
 
-// Affichage des informations du profil de l'utilisateur
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    echo "Nom d'utilisateur : " . $row["username"] . "<br>";
-    echo "Adresse e-mail : " . $row["email"] . "<br>";
-    echo "Date d'inscription : " . $row["register_date"] . "<br>";
+if ($result->rowCount() > 0) {
+  $row = $result->fetch(PDO::FETCH_ASSOC);
+  // Extraction des informations de profil
+  $name = $row['name'];
+  $username = $row['username'];
+  $bio = $row['bio'];
+  $avatar = $row['avatar'];
+
+  // Affichage des informations de profil
+  echo "<h1>$name</h1>";
+  echo "<img src='$avatar' alt='$name' width='100' height='100'>";
+  echo "<p><strong>Nom d'utilisateur:</strong> $username</p>";
+  echo "<p><strong>Biographie:</strong> $bio</p>";
 } else {
-    echo "Aucun utilisateur trouvé avec cet identifiant.";
+  echo "Utilisateur introuvable";
 }
 
 // Fermeture de la connexion à la base de données
-$conn->close();
+$conn = null;
 ?>

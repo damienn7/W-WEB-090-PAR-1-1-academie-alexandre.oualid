@@ -1,0 +1,21 @@
+@mixin img($blur:none,$rounded:0%,$responsive:auto){
+    filter: $blur;
+    border-radius: $rounded;
+    width: $responsive;
+    max-width: $responsive;
+    height: auto;
+}
+
+@mixin img-thumbnail($color:black){
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid $color;
+    border-radius: 0.375rem;
+    max-width: 100%;
+    height: auto;
+}
+
+@mixin img-icon(){
+    width: 1.5rem;
+    height: 1.5rem;
+}

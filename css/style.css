@@ -1,0 +1,82 @@
+header{
+    float: left;
+}
+main{
+    float: right;
+    margin-left: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer{
+    float: right;
+}
+.logos{
+    width: 26.25px;
+    height: 26.25px;
+    padding-right: 5%;
+    display: inline-block;
+}
+
+#oiseaulogo{
+    padding: 0px;
+}
+.container{
+    width: 15%;
+    border-right: solid 1px lightgray;
+    height: 100%;
+}
+.row{
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+.row a span{
+    display: inline-block; 
+    vertical-align: middle;
+    font-size: larger;
+}
+.row a{
+    font-weight: 500;
+    text-decoration: none;  
+    padding: 8px;
+    border-bottom-left-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px;
+}
+.row a:hover{
+    background-color: gainsboro;
+}
+
+.row a:active,
+.row a:focus{
+    font-weight: 700;
+    color: black;
+}
+#Tweeter{
+    padding: 10px;
+    padding-right: 60px;
+    padding-left: 60px;
+    color: white;
+    background-color: rgb(0, 140, 255);
+    border: none;
+    border-bottom-left-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px;
+    margin-bottom: 85%;
+}
+
+#Tweeter:active{
+    background-color: rgb(19, 75, 205);
+}
+
+.moncompte{
+    border-bottom-left-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px;
+}
+.moncompte:hover{
+    background-color: lightgray;
+}
