@@ -7,7 +7,7 @@ $sql1 = "UPDATE `users` SET `id_following`= CONCAT(`id_following`, ',2') WHERE `
 $sql2 = "UPDATE `users` SET `id_follower`= CONCAT(`id_follower`, ',1') WHERE `id`=2";
 
 if ($conn->query($sql1) && $conn->query($sql2)) {
-  echo "Utilisateur ajouté avec succès";
+//   echo "Utilisateur ajouté avec succès";
 } else {
   echo "Erreur: " . $conn->error;
 }
@@ -18,10 +18,12 @@ $result = $conn->query($sql3);
 
 if ($result->rowCount() > 0) {
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    $following_ids = explode(",", $row["id_following"]);
+    $following_id = explode(",", $row["id_following"]);
   }
+  if ($following_id [0]!=''){
   // Jointure avec la table users pour obtenir les noms d'utilisateurs
-  $sql4 = "SELECT `name` FROM `users` WHERE `id` IN (" . implode(",", $following_ids) . ")";
+  $sql4 = "SELECT `name` FROM `users` WHERE `id` IN (" . implode(",", $following_id) . ")";
+
   $result2 = $conn->query($sql4);
   if ($result2->rowCount() > 0) {
     echo "Utilisateurs suivis par l'utilisateur avec l'ID 1 : ";
@@ -35,5 +37,5 @@ if ($result->rowCount() > 0) {
   echo "Aucun utilisateur suivi";
 }
 
-$conn = null;
+$conn = null;}
 ?>
