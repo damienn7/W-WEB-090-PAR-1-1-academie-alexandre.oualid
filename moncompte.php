@@ -23,7 +23,7 @@
         session_start();
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
-
+        include('profil.php');
         // Connectez-vous à la base de données
         include("connect.php");
 
@@ -64,11 +64,12 @@
             unset($_SESSION['id']);
 
             // Rediriger l'utilisateur vers la page de connexion
-            header('Location: login.php');
+            header('Location: profile2.php');
             exit;
         }
         ?>
     </div>
+        <script src="./profil.js"></script>
 </main>
 </body>
 </html>

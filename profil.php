@@ -18,7 +18,11 @@ $result = $conn->query($sql3);
 
 if ($result->rowCount() > 0) {
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    $following_id = explode(",", $row["id_following"]);
+    $following_id[0]=$row ["id_following"];
+    if ($row ["id_following"]!='') {
+        # code...
+        $following_id = explode(",", $row["id_following"]);
+    }
   }
   if ($following_id [0]!=''){
   // Jointure avec la table users pour obtenir les noms d'utilisateurs
