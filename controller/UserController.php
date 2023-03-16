@@ -33,7 +33,7 @@ class UserController
         $salted_password = $salt . $password;
         $hashed_password = hash('ripemd160', $salted_password);
         if ($hashed_password === $response["password"]) {
-
+            // session_start();
             $_SESSION['logged_in'] = "logged";
             $_SESSION['username'] = $response["username"];
             $_SESSION['id'] = $response["id"];
@@ -66,15 +66,15 @@ class UserController
         $userModel = new UserModel();
         $response = $userModel->setUser($data);
 
-        if ($response == "success") {
-            $home = new IndexController();
-            $content = $home->renderHomeView("Votre compte a ete cree avec succes !", "", "");
-        } else {
-            $home = new IndexController();
-            $content = $home->renderHomeView("", "Erreur : Nous n'avons pas pu creer votre compte ... Veuillez reessayer !", "");
-        }
+        // if ($response == "success") {
+        //     $home = new IndexController();
+        //     $content = $home->renderHomeView("Votre compte a ete cree avec succes !", "", "");
+        // } else {
+        //     $home = new IndexController();
+        //     $content = $home->renderHomeView("", "Erreur : Nous n'avons pas pu creer votre compte ... Veuillez reessayer !", "");
+        // }
 
-        return $content;
+        
     }
 
     public function isAjax()

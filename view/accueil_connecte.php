@@ -18,7 +18,7 @@
 
         <?php include("../view/header.php"); ?>
         <main class="col-4 middle blur">
-            <!-- <h2 style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;">Accueil</h2> -->
+            <h2 style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;">Accueil</h2>
             <?php if ($alert_success != ""): ?>
                 <div class="row">
                     <div class="col">
@@ -52,6 +52,7 @@
                 ?>
 
                 <div class="container container-fluid ">
+                <form action="./" method="POST">
                     <div class="row" style="align-items:center;">
                         <img src="<?php echo $avatar; ?>" class="col" alt="profile image"
                             style="width:40px;height:auto;padding:10px;border-radius:50%;">
@@ -63,10 +64,23 @@
                         <div class="col">
                             <p class="message">
                                 <?= $tweet["message_tweet"] ?>
-                                <?= "hello world" ?>
                             </p>
                         </div>
                     </div>
+                    <div class="row">
+                            <input type="hidden" name="id_tweet" value="<?php echo $tweet["id_tweet"] ?>">
+                            <div class="col">
+                                <input type="text" name="message_reply">
+                                <input type="file" id="addPicReply" name="addPicReply">
+                                <input type="submit" name="reply" id="reply" value="Répondre">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="message_retweet">
+                                <input type="file" id="addPicRT" name="addPicRT">
+                                <input type="submit" name="retweet" id="retweet" value="Retweeter">
+                            </div>
+                    </div>
+                </form>
                 </div>
 
 
@@ -76,23 +90,26 @@
 
             ?>
         </main>
-        <?php if (!isset($_SESSION["logged_in"])): ?>
+        <?php if (isset($_SESSION["logged_in"])): ?>
             <footer class="col blocks blur logout">
 
-
-                <h1>Se connecter</h1>
                 <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-blue-twitter" name="login" data-toggle="modal" id="login"
-                            data-target="#login-modal">Connexion</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btn btn-blue-twitter" id="register" name="register" data-toggle="modal"
-                            data-target="#register-modal">Inscription</button>
-                    </div>
+                    <a href="#" class="moncompte img-icon"><?= $_SESSION["username"]; ?></a>
                 </div>
+                <div class="row">
+                    <form action="./index.php" class="col" method="post">
+                        <button type="submit" class="btn btn-danger" name="logout" class="moncompte img-icon">Logout</button>
+                    </form>
+                    <form action="#" class="col">
+                    <input type="submit" class="btn btn-blue-twitter" value="Tweeter" id="Tweeter">
+                </form>
 
+                </div>
             </footer>
         <?php endif; ?>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <!-- <script src="../public/js/refresh.js"></script> -->
 </body>

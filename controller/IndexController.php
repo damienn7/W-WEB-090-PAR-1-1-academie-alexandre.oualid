@@ -15,7 +15,29 @@ class IndexController
         $tweets = new TweetModel();
         $tweets = $tweets->getTweets();
 
+
+// $routes = [
+//     '/' => '../view/accueil.php',
+//     '/home_connected' => '../view/accueil_connecte.php',
+//     '/profil' => '../view/profil.php'
+// ];
+
+
+// $url = $_SERVER['REQUEST_URI'];
+
+
+// if (array_key_exists($url, $routes)) {
+
+//     require_once $routes[$url];
+// } else {
+
+//     header('HTTP/1.1 404 Not Found');
+//     echo 'Page non trouvée';
+//     exit;
+// }
+
         include('../view/accueil_connecte.php');
+
 
     }
 
@@ -25,6 +47,8 @@ class IndexController
         $tweets = $tweets->getTweets();
 
         include("../view/accueil.php");
+
+
     }
 
     public function isAjax()

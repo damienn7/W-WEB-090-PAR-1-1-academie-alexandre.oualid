@@ -13,6 +13,7 @@
     @include grid.flex(100%, 0);
     width: 100%;
     margin-top: 1.5rem;
+    align-items: center;
 }
 
 .container {
@@ -794,13 +795,7 @@ $xxl: 1320px;
     justify-content: center;
   }
 
-//   .blocks{
-//     border-right: 1px solid color.$blue-twitter;
-//     border-left: 1px solid color.$blue-twitter;
-//   }
-
   .middle{
-    // position: absolute;
     margin: auto;
     margin-bottom: 80px;
   }
@@ -816,4 +811,12 @@ $xxl: 1320px;
     right:5%;
     top:0;
     width: 20%;
+  }
+
+  a,span{
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    align-items: center;
+    padding-left: 5px;
   }
