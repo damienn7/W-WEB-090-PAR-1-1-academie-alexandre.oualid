@@ -98,6 +98,41 @@ class TweetModel
         return $tweets;
     }
 
+    public function searchByHashtag($hashtag)
+    {
+        try {
+            //code...
+        $db = new DatabaseModel();
+        $db=$db->pdo;
+        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE t.message LIKE '%$hashtag%' or tweet.message LIKE '%$hashtag%' order by tweet.date_send desc limit 10";
+
+        $statement=$db->prepare($query);
+        $statement->execute();
+        $tweets=$statement->fetchAll();
+    } catch (\Exception $e) {
+        die("Erreur : ".$e->getMessage());
+    }
+    
+        return $tweets;
+    }
+
+    public function searchByUserId($id_user)
+    {
+        try {
+            //code...
+        $db = new DatabaseModel();
+        $db=$db->pdo;
+        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE tweet.id_user=:id order by tweet.date_send desc limit 10;";
+        $statement=$db->prepare($query);
+        $statement->bindParam("id",$id_user,\PDO::PARAM_INT);
+        $statement->execute();
+        $tweets=$statement->fetchAll();
+    } catch (\Exception $e) {
+        die("Erreur : ".$e->getMessage());
+    }
+    
+        return $tweets;
+    }
     private function getDatetime($year, $month, $day): string
     {
         $datetime = new \DateTime();
