@@ -91,15 +91,16 @@
 				<h1><?php echo $user["name"];?></h1>
                 <div class="row" style="width:500px;">
 				<p style="margin-right:3%;"><?php echo "@".$user["username"];?></p>
-				<p style="margin-right:3%;"><strong>Followers: </strong> <?php echo $followers;?></p>
-				<p style="margin-right:3%;"><strong>Following: </strong> <?php echo $followings;?></p>
+				<p style="margin-right:3%;"><?php echo $followers;?><strong>  followers </strong> </p>
+				<p style="margin-right:3%;"><?php echo $followings;?><strong>  following</strong> </p>
             </div>
-			</div>
-		</div>
-		<div class="content">
+            <div class="content" style="text-align:left;margin-top:3%;font-weight:600;">
 			<p><?php echo $user["bio"];?></p>
 			
 		</div>
+			</div>
+		</div>
+
 	</div>
 	<script src="../js/profil.js"></script>
             <?php endif; ?>

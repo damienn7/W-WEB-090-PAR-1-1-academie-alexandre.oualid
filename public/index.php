@@ -1,4 +1,5 @@
 <?php
+use App\Controller\MessageController;
 session_start();
 
 error_reporting(E_ALL);
@@ -17,6 +18,7 @@ require_once '../model/UserModel.php';
 require_once '../model/DatabaseModel.php';
 require_once '../model/ConfigDbModel.php';
 require_once '../controller/UserController.php';
+require_once '../controller/MessageController.php';
 require_once '../view/body.php';
 
 AutoloaderModel::register();
@@ -79,13 +81,19 @@ if (isset($_SESSION["logged_in"])) {
     //    echo '</pre>';
       }
       
-      // Formulaire de recherche
-    //   echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">";
-    //   echo "<input type=\"text\" name=\"search\">";
-    //   echo "<input type=\"submit\" value=\"Rechercher\">";
-    //   echo "</form>";
-      
-    //   $conn = null;
+      if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
+        if (isset($_POST["mp"])) {
+               $id_user = $_SESSION["id"];
+               $id_receiver = 9;//IL FAUT changer ça j'ai mis 9 pour test mais il faudra récupérer un id différent selon le receiver
+               $mp = $_POST["mp"];
+    
+               $e = new MessageController();
+               $e->createMessage($id_user,$id_receiver,$mp);
+        }
+        else{
+            echo "Vous devez écrire un message.";
+        }
+    }
       
     
 
