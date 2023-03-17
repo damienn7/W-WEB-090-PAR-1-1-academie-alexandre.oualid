@@ -106,4 +106,19 @@ class TweetModel
         $date = $datetime->format('Y-m-d H:i:s');
         return $date;
     }
+    public function searchByHashtag($hashtag)
+    {
+        $query = "SELECT * FROM `tweet` WHERE `message` LIKE '%$hashtag%'";
+        $result = $this->db->query($query);
+    
+        $tweets = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $tweets[] = $row;
+            }
+        }
+    
+        return $tweets;
+    }
+    
 }

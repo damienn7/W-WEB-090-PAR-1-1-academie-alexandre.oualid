@@ -81,16 +81,31 @@ if (isset($_SESSION["logged_in"])) {
  }
 }
 
-if(isset($_POST['search'])){
-    // Récupération de la valeur de recherche
-    $search = $_POST['search'];
-  echo $search;
-   $user = new UserController();
-   $result=$user->search($search);
+// if(isset($_POST['search'])){
+//     Récupération de la valeur de recherche
+//     $search = $_POST['search'];
+//   echo $search;
+//    $user = new UserController();
+//    $result=$user->search($search);
 //     echo '<pre>';
 //    var_dump($result);
-//    echo '</pre>';
-  }
+//    echo '</pre>';}
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+    echo $search;
+
+    if ($search[0] === '#') { // Vérification si le premier caractère est un hashtag
+        $tweet = new TweetController();
+        $tweets = $tweet->searchByHashtag($search);
+        // Traiter les résultats de la recherche des tweets
+    } else {
+        $user = new UserController();
+        $result = $user->search($search);
+        // Traiter les résultats de la recherche des profils utilisateur
+    }
+}
+
+  
   
   // Formulaire de recherche
 //   echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">";
@@ -106,7 +121,14 @@ if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
     if (isset($_POST['search'])) {
-        $home->renderHomeProfilConnected($result);
+        if (isset($tweets)) {
+            # code...
+            $home->renderTweetsSearch($tweets);
+        }
+        if (isset($result)) {
+            # code...
+            $home->renderHomeProfilConnected($result);
+        }
     }else{
         $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
             <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">

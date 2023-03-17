@@ -68,6 +68,10 @@ class IndexController
         include("../view/profil2.php");
     }
 
+    public function renderTweetsSearch($tweets_hastag){
+        include("accueil_connecte.php");
+    }
+
     public function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest";

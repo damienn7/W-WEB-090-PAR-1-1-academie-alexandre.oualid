@@ -38,5 +38,12 @@ class TweetController
         $linkTweet = preg_replace('/@(\w+)/', '<a href="https://twitter.com/arobase/$1">@$1</a>', $linkTweet);
         return $linkTweet;
     }
-
+    public function searchByHashtag($hashtag)
+    {
+        $tweet=new TweetModel();
+        $tweets=$tweet-> searchByHashtag($hashtag);
+    
+        return $tweets;
+    }
+    
 }
