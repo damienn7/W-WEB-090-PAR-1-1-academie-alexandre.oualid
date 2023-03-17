@@ -77,6 +77,16 @@ class UserController
         
     }
 
+    public function search($search){
+        $user = new UserModel();
+        $infos=$user->getUserByUsername($search);
+
+        //if (isset($infos[0]["id"])) {
+            // var_dump($infos);
+        //}
+        return $infos;
+    }
+
     public function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest";

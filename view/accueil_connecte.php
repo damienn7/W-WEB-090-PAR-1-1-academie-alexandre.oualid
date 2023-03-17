@@ -1,42 +1,18 @@
-<!-- <!DOCTYPE html>
-        <html lang="en">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Twitter - Accueil</title>
-            <link rel="stylesheet" href="../public/css/main.css">
-            <link rel="stylesheet"
-                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-            <script src="./js/script.js" type="text/javascript"></script>
-
-        </head> -->
-
 <body class="container container-fluid">
     <div class="row container-fluid">
 
         <?php include("../view/header.php"); ?>
-        <main class="col-4 middle blur">
-            <h2 style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;">Accueil</h2>
-            <?php if ($alert_success != ""): ?>
-                <div class="row">
-                    <div class="col">
-                        <p class="alert-success">
-                            <?= $alert_success ?>
-                        </p>
-                    </div>
-                </div>
-            <?php endif; ?>
-            <?php if ($alert_danger != ""): ?>
-                <div class="row">
-                    <div class="col">
-                        <p class="alert-success">
-                            <?= $alert_danger ?>
-                        </p>
-                    </div>
-                </div>
-            <?php endif; ?>
+        <main class="col-6 middle blur">
+            <div  style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;">
+            <!-- <h2>Accueil</h2> -->
+            <form action="index.php" method="post">
+  <label for="search">Rechercher :</label>
+  <input type="text" name="search" id="search">
+  <input type="submit" value="Rechercher">
+</form>
+</div>
+
+            <?php if (!isset($_POST["search"])): ?>
 
             <div class="row">
                 <div class="col">
@@ -49,6 +25,12 @@
                 $user = new App\controller\UserController();
                 $user = $user->getUserInformations($tweet["id_user_tweet"]);
                 $avatar = ($user["avatar"] != NULL) ? $user["avatar"] : "https://cdn.discordapp.com/attachments/1077191464683048980/1080782875521204274/sans_pp.webp";
+                $link_array=explode("https",$tweet["message_tweet"]);
+                $message=$tweet["message_tweet"];
+                if (isset($link_array[1])) {
+                    $link = "https". $link_array[1];
+                    $message=str_replace(" $link","",$message);
+                }
                 ?>
 
                 <div class="container container-fluid ">
@@ -61,11 +43,21 @@
                         </h3>
                     </div>
                     <div class="row">
+                    <?php if(isset($link)){?>
                         <div class="col">
                             <p class="message">
-                                <?= $tweet["message_tweet"] ?>
+                                <?= $message ?>
                             </p>
                         </div>
+                        <?php }else{?>
+                            <p class="message">
+                            <?php echo $tweet["message_tweet"];}?>
+                            </p>
+                            <?php if(isset($link)){?>
+                        <div class="col">
+                            <img src="<?= $link;?>" alt="image du tweet">
+                            </div>
+                        <?php }?>
                     </div>
                     <div class="row">
                             <input type="hidden" name="id_tweet" value="<?php echo $tweet["id_tweet"] ?>">
@@ -84,11 +76,33 @@
                 </div>
 
 
-
                 <?php
             }
-
+            
             ?>
+            <?php else: ?>
+                <div class="container">
+		<div class="header">
+			<div class="photo" style="background-image:url('<?php echo $user["banner"]; ?>');background-size:100%;height:200px;width:500px;">
+				<img src="<?php echo $user["avatar"];?>" style="width:100px;height:100px;border-radius:50%;border:2px solid blue;top:200px;position:absolute;">
+                
+			</div>
+			<div class="info" style="top:300px;position: absolute;text-align: right;justify-content:space-between;">
+				<h1><?php echo $user["name"];?></h1>
+                <div class="row" style="width:500px;">
+				<p style="margin-right:3%;"><?php echo "@".$user["username"];?></p>
+				<p style="margin-right:3%;"><strong>Followers: </strong> <?php echo $followers;?></p>
+				<p style="margin-right:3%;"><strong>Following: </strong> <?php echo $followings;?></p>
+            </div>
+			</div>
+		</div>
+		<div class="content">
+			<p><?php echo $user["bio"];?></p>
+			
+		</div>
+	</div>
+	<script src="../js/profil.js"></script>
+            <?php endif; ?>
         </main>
         <?php if (isset($_SESSION["logged_in"])): ?>
             <footer class="col blocks blur logout">
@@ -108,6 +122,9 @@
             </footer>
         <?php endif; ?>
     </div>
+    <?php if(isset($_POST["search"])): ?>
+        <script src="profil.js"></script>
+    <?php endif; ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>

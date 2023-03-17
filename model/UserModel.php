@@ -75,11 +75,12 @@ class UserModel
     {
         try {
             // Récupérer l'utilisateur correspondant au nom d'utilisateur
-            $sql = "SELECT * FROM users WHERE username = :username";
+            $sql = "SELECT * FROM `users` WHERE `username` LIKE '%$username%' OR `name` LIKE '%$username%'";
             $db = new DatabaseModel();
             $db = $db->pdo;
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':username', $username);
+            // $stmt->bindParam(':username', $username);
+            // $stmt->bindParam(':name', $username);
             $stmt->execute();
             $user = $stmt->fetch();
         } catch (\Exception $e) {
@@ -90,14 +91,6 @@ class UserModel
         return $user;
 
     }
-
-    public function getUsers($city = 'Paris', $min = 18, $max = 60, $hobbies = "")
-    {
-
-    }
-
-
-
     private function getDatetime($year, $month, $day): string
     {
         $datetime = new \DateTime();

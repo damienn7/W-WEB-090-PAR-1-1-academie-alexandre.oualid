@@ -51,6 +51,34 @@ class IndexController
 
     }
 
+    public function renderHomeProfilConnected($user){
+        $count=0;
+        if ($user["id_follower"]!="") {
+            $array=explode(",",$user["id_follower"]);
+            foreach ($array as $key => $value) {
+                $count++;
+            }
+            $followers=$count;
+            $count=0;
+        }else {
+            $followers="0";
+        }
+
+        if ($user["id_following"]!="") {
+            $array=explode(",",$user["id_following"]);
+            foreach ($array as $key => $value) {
+                $count++;
+            }
+            $followers=$count;
+            $count=0;
+        }else {
+            $followings="0";
+        }
+
+        
+        include("../view/accueil_connecte.php");
+    }
+
     public function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest";

@@ -51,44 +51,58 @@ if (isset($_SESSION["logged_in"])) {
         header("Refresh:0");
     }
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["submit"])) {
-
-        $tweet = $_POST["tweet"];
-        $id = $_SESSION["id"];
-        $addPic = $_POST["photo"];
-
-        $a = new TweetController();
-        $a = $a->createTweet($id, $tweet,$addPic);
- }
-
- if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["retweet"])){
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["retweet"])) {
         $retweet = $_POST["message_retweet"];
         $id = $_SESSION["id"];
         $id_retweet = $_POST["id_tweet"];
         $addPicRT = $_POST["addPicRT"];
 
         $b = new TweetController();
-        $b = $b->createRetweet($id,$retweet,$id_retweet,$addPicRT);
- }
- if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reply"])){
+        $b->createRetweet($id, $retweet, $id_retweet, $addPicRT);
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reply"])) {
         $reply = $_POST["message_reply"];
         $id = $_SESSION["id"];
         $id_reply = $_POST["id_tweet"];
         $addPicRT = $_POST["addPicReply"];
 
         $b = new TweetController();
-        $b = $b->createreply($id,$reply,$id_reply,$addPicRT);
- }
+        $b->createreply($id, $reply, $id_reply, $addPicRT);
+    }
+    if(isset($_POST['search'])){
+        // Récupération de la valeur de recherche
+        $search = $_POST['search'];
+       $user = new UserController();
+       $result=$user->search($search);
+    //     echo '<pre>';
+    //    var_dump($result);
+    //    echo '</pre>';
+      }
+      
+      // Formulaire de recherche
+    //   echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">";
+    //   echo "<input type=\"text\" name=\"search\">";
+    //   echo "<input type=\"submit\" value=\"Rechercher\">";
+    //   echo "</form>";
+      
+    //   $conn = null;
+      
+    
+
 }
 
 $home = new IndexController();
 if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
-    $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
-        <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
-        <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
-        </form>");
+    if (isset($_POST['search'])) {
+        $home->renderHomeProfilConnected($result);
+    }else{
+        $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
+            <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
+            <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
+            </form>");
+    }
 
 }
 

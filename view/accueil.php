@@ -41,6 +41,11 @@
                 $user = new App\controller\UserController();
                 $user = $user->getUserInformations($tweet["id_user_tweet"]);
                 $avatar = ($user["avatar"] != NULL) ? $user["avatar"] : "https://cdn.discordapp.com/attachments/1077191464683048980/1080782875521204274/sans_pp.webp";
+                $link_array = explode("https", $tweet["message_tweet"]);
+                if (isset($link_array[1])) {
+                    $link = "https" . $link_array[1];
+                    $message=str_replace(" $link","",$message);
+                }
                 ?>
 
                 <div class="container container-fluid ">
@@ -52,11 +57,22 @@
                         </h3>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <p class="message">
-                                <?= $tweet["message_tweet"] ?>
+                        <?php if (isset($link)) { ?>
+                            <div class="col">
+                                <p class="message">
+                                    <?= $message ?>
+                                </p>
+                            <?php } else { ?>
+                                <p class="message">
+                                    <?php echo $tweet["message_tweet"];
+                        } ?>
                             </p>
-                        </div>
+                            <?php if (isset($link)) { ?>
+                            </div>
+                            <div class="col">
+                                <img src="<?= $link; ?>" alt="image du tweet">
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
 
