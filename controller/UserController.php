@@ -64,16 +64,7 @@ class UserController
         $data = [$email, $password, $name, $username, $birthdate, $gender, $city, $avatar, $banner];
 
         $userModel = new UserModel();
-        $response = $userModel->setUser($data);
-
-        // if ($response == "success") {
-        //     $home = new IndexController();
-        //     $content = $home->renderHomeView("Votre compte a ete cree avec succes !", "", "");
-        // } else {
-        //     $home = new IndexController();
-        //     $content = $home->renderHomeView("", "Erreur : Nous n'avons pas pu creer votre compte ... Veuillez reessayer !", "");
-        // }
-
+        $userModel->setUser($data);
         
     }
 
@@ -81,20 +72,12 @@ class UserController
         $user = new UserModel();
         $infos=$user->getUserByUsername($search);
 
-        //if (isset($infos[0]["id"])) {
-            // var_dump($infos);
-        //}
         return $infos;
     }
 
     public function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest";
-    }
-
-    public function getAllProfiles($city = "Paris", $min = 18, $max = 60, $post = "")
-    {
-
     }
 
     public function redirectToRoute($location = "homeView")

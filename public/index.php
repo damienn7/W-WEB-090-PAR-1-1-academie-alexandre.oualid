@@ -1,5 +1,6 @@
 <?php
 use App\Controller\MessageController;
+
 session_start();
 
 error_reporting(E_ALL);
@@ -71,45 +72,71 @@ if (isset($_SESSION["logged_in"])) {
         $b = new TweetController();
         $b->createreply($id, $reply, $id_reply, $addPicRT);
     }
-    if(isset($_POST['search'])){
-        // Récupération de la valeur de recherche
-        $search = $_POST['search'];
-       $user = new UserController();
-       $result=$user->search($search);
-    //     echo '<pre>';
-    //    var_dump($result);
-    //    echo '</pre>';
-      }
-      
-      if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
         if (isset($_POST["mp"])) {
-               $id_user = $_SESSION["id"];
-               $id_receiver = 9;//IL FAUT changer ça j'ai mis 9 pour test mais il faudra récupérer un id différent selon le receiver
-               $mp = $_POST["mp"];
-    
-               $e = new MessageController();
-               $e->createMessage($id_user,$id_receiver,$mp);
-        }
-        else{
+            $id_user = $_SESSION["id"];
+            $id_receiver = 9; //IL FAUT changer ça j'ai mis 9 pour test mais il faudra récupérer un id différent selon le receiver
+            $mp = $_POST["mp"];
+
+            $e = new MessageController();
+            $e->createMessage($id_user, $id_receiver, $mp);
+        } else {
             echo "Vous devez écrire un message.";
         }
     }
-      
-    
 
+    if (isset($_POST['search'])) {
+        $search = $_POST['search'];
+
+        if ($search == "") {
+            $tweet = new TweetController();
+            $tweets = $tweet->searchByHashtag($search);
+        } else {
+
+            if ($search[0] === '#') { // Vérification si le premier caractère est un hashtag
+                $tweet = new TweetController();
+                $tweets = $tweet->searchByHashtag($search);
+                // Traiter les résultats de la recherche des tweets
+            } else {
+                $user = new UserController();
+                $result = $user->search($search);
+                // Traiter les résultats de la recherche des profils utilisateur
+            }
+            # code...
+        }
+    }
 }
+
+
+
+// Formulaire de recherche
+//   echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">";
+//   echo "<input type=\"text\" name=\"search\">";
+//   echo "<input type=\"submit\" value=\"Rechercher\">";
+//   echo "</form>";
+
+//   $conn = null;
+
 
 $home = new IndexController();
 if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
     if (isset($_POST['search'])) {
-        $home->renderHomeProfilConnected($result);
-    }else{
+        if (isset($tweets)) {
+            # code...
+            $home->renderTweetsSearch($tweets);
+        }
+        if (isset($result)) {
+            # code...
+            $home->renderHomeProfilConnected($result);
+        }
+    } else {
         $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
-            <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
-            <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
-            </form>");
+                <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
+                <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
+                </form>");
     }
 
 }

@@ -47,8 +47,10 @@ class IndexController
         $tweets = $tweets->getTweets();
 
         include("../view/accueil.php");
+    }
 
-
+    public function renderTweetsSearch($tweets_hashtag){
+        include("../view/accueil_connecte.php");
     }
 
     public function renderHomeProfilConnected($user){
@@ -69,11 +71,14 @@ class IndexController
             foreach ($array as $key => $value) {
                 $count++;
             }
-            $followers=$count;
+            $followings=$count;
             $count=0;
         }else {
             $followings="0";
         }
+
+        $tweets=new TweetController();
+        $tweets_profil=$tweets->getTweetsByUserId($user["id"]);
 
         
         include("../view/accueil_connecte.php");

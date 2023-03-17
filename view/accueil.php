@@ -4,7 +4,7 @@
         <?php include("../view/header.php"); ?>
 
         <main class="col-4 middle blur logout">
-            <h2 style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;">Accueil</h2>
+            <h2 style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;z-index:101;">Accueil</h2>
             <?php if ($alert_success != ""): ?>
                 <div class="row">
                     <div class="col">

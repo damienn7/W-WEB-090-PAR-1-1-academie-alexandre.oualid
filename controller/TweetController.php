@@ -39,4 +39,18 @@ class TweetController
         return $linkTweet;
     }
 
+    public function searchByHashtag($hashtag)
+    {
+        $tweet=new TweetModel();
+        $tweets=$tweet-> searchByHashtag(htmlspecialchars($hashtag));
+    
+        return $tweets;
+    }
+
+    public function getTweetsByUserId($id){
+        $tweets=new TweetModel();
+        $response=$tweets->searchByUserId($id);
+        return $response;
+    }
+
 }
