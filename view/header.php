@@ -1,31 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
+<header class="header-container-home blur col blocks">
+                    <div class="container">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitter - Accueil</title>
-    <link rel="stylesheet" href="../public/css/output.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-</head>
 
-<body class="container container-fluid">
-    <div class="row container-fluid">
-    <header class="col blocks">
-        <div class="container">
-            <div class="row">
-                <a href="#" id="home"><img src="../public/img/twitter_logo.png" alt="logo de twitter" id="oiseaulogo" class="logos img-icon"></a>
-            </div>
-            <div class="row">
-                <div class="col">
-                <a href="#" id="home"><img src="../public/img/logo_maison.png" alt="logo de l'Accueil"
-                        class="logos img-icon"></a>
-                </div>
+                        <div class="row">
+                            <a href="#" id="home"><img src="../public/img/twitter_logo.png" alt="logo de twitter"
+                            id="oiseaulogo" class="logos img-icon"></a>
+                        </div>
+                        <div class="row">
+                            <a href="#" class="row" id="home"><img src="../public/img/logo_maison.png" alt="logo de l'Accueil"
+                            class="logos img-icon"><span>Accueil</span></a>
+                        </div>
+                        <div class="row">
+                            <a href="#" class="row" id="explore"><img src="../public/img/hashtag.png" alt="logo hashtag"
+                            class="logos img-icon"><span>Explorer</span></a>
+                        </div>
+                        <?php if (isset($_SESSION["logged_in"])): ?>
+                            <div class="row">
+                                <a href="#" class="row" id="notification"><img src="../public/img/logo_cloche.png" alt="logo notification"
+                                        class="logos img-icon"><span>Notifications</span></a>
+                            </div>
+                            <div class="row">
+                                <a href="#" class="row" id="message"><img src="../public/img/logo_message.png" alt="logo messages"
+                                        class="logos img-icon"><span>Messages</span></a>
+                            </div>
+                            <div class="row">
+                                <a href="#" class="row" id="account"><img src="../public/img/logo_profil.png" alt="logo profil"
+                                        class="logos img-icon"><span>Profil</span></a>
+                            </div>
+                            <div class="row">
+                                <a href="#" class="row" id="more"><img src="../public/img/logo_plus.png" alt="logo plus"
+                                        class="logos img-icon"><span>Plus</span></a>
+                            </div>
+
+ 
+                            
+
+
+                        <?php endif; ?>
+
                     </div>
-            <div class="row">
-                <a href="#" id="explore"><img src="../public/img/hashtag.png" alt="logo hashtag" class="logos img-icon"></a>
-            </div>
-        </div>
-    </header>
+                </header>

@@ -13,6 +13,7 @@
     @include grid.flex(100%, 0);
     width: 100%;
     margin-top: 1.5rem;
+    align-items: center;
 }
 
 .container {
@@ -712,12 +713,14 @@ $xxl: 1320px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 100%;
   }
 
   .btn-close {
     box-sizing: content-box;
     width: 1em;
     height: 1em;
+    font-weight: 800;
     padding: 0.25em 0.25em;
     color: #000;
     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
@@ -740,7 +743,7 @@ $xxl: 1320px;
     display: flex;
     flex-direction: column;
     width: 50%;
-    height: 250px;
+    height: 100%;
     color: black;
     pointer-events: auto;
     background-color: white;
@@ -792,13 +795,7 @@ $xxl: 1320px;
     justify-content: center;
   }
 
-//   .blocks{
-//     border-right: 1px solid color.$blue-twitter;
-//     border-left: 1px solid color.$blue-twitter;
-//   }
-
   .middle{
-    // position: absolute;
     margin: auto;
     margin-bottom: 80px;
   }
@@ -814,4 +811,12 @@ $xxl: 1320px;
     right:5%;
     top:0;
     width: 20%;
+  }
+
+  a,span{
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    align-items: center;
+    padding-left: 5px;
   }

@@ -23,19 +23,27 @@
         ini_set('display_errors', 1);
 
         $id_user = $_SESSION["id"];
-        $receiver = 9;
+        $id_receiver = 9;
         $mp = $_POST["mp"];
-        
+
         include("conn.php");
 
         if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
             if (isset($_POST["mp"])) {
-                $sql = "INSERT INTO private_message (id_sender, id_receiver, message) VALUES (:id_user, :id_receiver, :mp)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
-                $stmt->bindParam(":id_receiver", $receiver, \PDO::PARAM_INT);
-                $stmt->bindParam(":mp", $mp, \PDO::PARAM_STR_CHAR);
-                $stmt->execute();
+                try {
+                    $sql = "INSERT INTO private_message (id_sender, id_receiver, message) VALUES (:id_user, :id_receiver, :mp)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
+                    $stmt->bindParam(":id_receiver", $id_receiver, \PDO::PARAM_INT);
+                    $stmt->bindParam(":mp", $mp, \PDO::PARAM_STR_CHAR);
+                    $stmt->execute();
+                } catch (\Exception $e) {
+                    echo "Une erreur est survenue";
+                    die('Erreur : ' . $e->getMessage());
+                }
+            }
+            else{
+                echo "Vous devez écrire un message.";
             }
         }
         ?>

@@ -13,22 +13,20 @@ class TweetModel
 
     private $date_send;
 
-    public function setTweet($id,$tweet,$addPic)
+    public function setTweet($id,$tweet)
     {
         try{
-            $tweet = $tweet." ".$addPic;
             $sql = "INSERT INTO tweet(id_user,message) VALUES (:id,:tweet)";
             $db = new DatabaseModel();
             $db=$db->pdo;
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':id', $id,\PDO::PARAM_INT);
             $stmt->bindParam(':tweet', $tweet,\PDO::PARAM_STR_CHAR);
+            $stmt->bindParam(':id', $id,\PDO::PARAM_INT);
             $stmt->execute();
         } catch (\Exception $e) {
-            echo "Une erreur est survenue";
+            echo "Une erreur est survenue veuillez remplir le formulaire correctement.";
             die('Erreur : ' . $e->getMessage());
         }
-
     }
 
     public function setRetweet($id,$retweet,$id_retweet,$addPicRT)
@@ -87,7 +85,7 @@ class TweetModel
     public function getTweets()
     {
         try {
-            $query = "select * from tweet order by id desc limit 20;";
+            $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", tweet.message as \"message_tweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id order by tweet.date_send desc limit 10;";
             $db = new DatabaseModel();
             $db=$db->pdo;
             $statement=$db->prepare($query);

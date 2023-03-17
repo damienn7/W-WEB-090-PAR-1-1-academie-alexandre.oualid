@@ -69,7 +69,7 @@ class IndexController
                 require("../view/header.php");
 
                 ?><main class="col-4 middle">
-                    
+
             <form action="" method="POST">
                 <input type="text" maxlength="140" name="tweet" id="tweet" autocomplete="off">
                 <input type="file" id="photo" name="photo">
@@ -101,6 +101,9 @@ class IndexController
                                 <input type="text" name="message_reply">
                                 <input type="file" id="addPicReply" name="addPicReply">
                                 <input type="submit" name="reply" id="reply" value="Répondre">
+                            </div>
+                            <div class="col">
+                                <input type="submit" name="like" id="like" value="Aimer">
                             </div>
                             <div class="col">
                                 <input type="text" name="message_retweet">

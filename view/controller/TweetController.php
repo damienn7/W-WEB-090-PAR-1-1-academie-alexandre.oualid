@@ -3,17 +3,10 @@
 namespace App\controller;
 
 use App\model\TweetModel;
-
 class TweetController
 {
 
     private $data = [];
-
-
-    private function renderRegisterView()
-    {
-        
-    }
 
     public function isAjax(){
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"]=="XMLHttpRequest";
@@ -24,9 +17,10 @@ class TweetController
         header('Location: http://localhost:8080/view/' . $location . '.php');
     }
 
-    public function createTweet($id,$tweet,$addPic){
+    public function createTweet($id,$tweet){
         $tweetMessage = new TweetModel();
-        $tweetMessage->setTweet($id,$tweet,$addPic);
+        $tweetMessage->setTweet($id,$tweet);
+        
     }
 
     public function createRetweet($id,$retweet,$id_retweet,$addPicRT){
@@ -39,13 +33,6 @@ class TweetController
         $replyMessage->setReply($id,$reply,$id_reply,$addPicReply);
     }
 
-    public function createLike($id_tweet,$id_user){
-        $likeTweet = new TweetModel();
-        $likeTweet->setLike($id_tweet,$id_user);
-    }
-
-
-    //cette fonction est un crashtest elle ne sert à rien pour l'instant
     public function tweetLink($msgTweet){
         $linkTweet = preg_replace('/#(\w+)/', '<a href="https://twitter.com/hashtag/$1">#$1</a>', $msgTweet);
         $linkTweet = preg_replace('/@(\w+)/', '<a href="https://twitter.com/arobase/$1">@$1</a>', $linkTweet);
