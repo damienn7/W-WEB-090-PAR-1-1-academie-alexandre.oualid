@@ -1,3 +1,7 @@
-// setInterval(function(){
-//     $('body').load('http://localhost:8080/public/index.php');
-//  }, 2000);
+
+(function ($) {
+setInterval(function(){
+    $('.container').load('http://localhost:8080/public/index.php');
+ }, 2000);
+
+})

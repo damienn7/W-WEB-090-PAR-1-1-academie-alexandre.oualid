@@ -33,7 +33,7 @@ class UserController
         $salted_password = $salt . $password;
         $hashed_password = hash('ripemd160', $salted_password);
         if ($hashed_password === $response["password"]) {
-
+            // session_start();
             $_SESSION['logged_in'] = "logged";
             $_SESSION['username'] = $response["username"];
             $_SESSION['id'] = $response["id"];
@@ -64,27 +64,20 @@ class UserController
         $data = [$email, $password, $name, $username, $birthdate, $gender, $city, $avatar, $banner];
 
         $userModel = new UserModel();
-        $response = $userModel->setUser($data);
+        $userModel->setUser($data);
+        
+    }
 
-        if ($response == "success") {
-            $home = new IndexController();
-            $content = $home->renderHomeView("Votre compte a ete cree avec succes !", "", "");
-        } else {
-            $home = new IndexController();
-            $content = $home->renderHomeView("", "Erreur : Nous n'avons pas pu creer votre compte ... Veuillez reessayer !", "");
-        }
+    public function search($search){
+        $user = new UserModel();
+        $infos=$user->getUserByUsername($search);
 
-        return $content;
+        return $infos;
     }
 
     public function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest";
-    }
-
-    public function getAllProfiles($city = "Paris", $min = 18, $max = 60, $post = "")
-    {
-
     }
 
     public function redirectToRoute($location = "homeView")

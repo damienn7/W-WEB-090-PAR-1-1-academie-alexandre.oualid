@@ -1,4 +1,6 @@
 <?php
+use App\Controller\MessageController;
+
 session_start();
 
 error_reporting(E_ALL);
@@ -16,104 +18,126 @@ require_once '../model/TweetModel.php';
 require_once '../model/UserModel.php';
 require_once '../model/DatabaseModel.php';
 require_once '../model/ConfigDbModel.php';
-require '../controller/UserController.php';
-require_once '../view/header_connected.php';
+require_once '../controller/UserController.php';
+require_once '../controller/MessageController.php';
+require_once '../view/body.php';
 
 AutoloaderModel::register();
-// Définition des routes
-$routes = [
-    '/' => '../view/accueil.php',
-    '/home_connected' => '../view/accueil_connecte.php',
-    '/profil' => '../view/profil.php'
-];
-
-// Récupération de l'URL demandée
-$url = $_SERVER['REQUEST_URI'];
-
-// Si la route demandée existe
-if (array_key_exists($url, $routes)) {
-    // Inclure la page correspondante
-    require_once $routes[$url];
-} else {
-    // Afficher une erreur 404
-    header('HTTP/1.1 404 Not Found');
-    // echo 'Page non trouvée';
-}
-
-
-
 
 if (!isset($_SESSION["logged_in"])) {
-    if (!isset($_POST["username"])||!isset($_POST["email"])||!isset($_SESSION["logged_in"])) {
-        $home = new IndexController();
-        $home = $home->renderHomeView();
-    }
-
     if (isset($_POST["submit_account"])) {
         $user = new UserController();
-        $home_form_submited = $user->createUser($_POST);
-        
+        $user->createUser($_POST);
     }
 
     if (isset($_POST["username"])) {
         $user_connect = new UserController();
         $resp = $user_connect->connectUser($_POST["username"], $_POST["password"]);
         if (!isset($_SESSION["logged_in"])) {
-  
-            header("Location: accueil.php");
-            exit;
+            header("Location: index.php");
         }
-            header_remove(headers_list()[0]);
-            header("Refresh:0");
-        
-        
     }
-
 }
 
 if (isset($_SESSION["logged_in"])) {
-    # code...
-    // var_dump($_SESSION);
 
-    var_dump(headers_list());
     if (isset($_POST["tweet"])) {
         $tweet = new TweetController();
-        $tweet->createTweet($_SESSION['id'],htmlspecialchars($_POST["tweet"]));
+        $tweet->createTweet($_SESSION['id'], htmlspecialchars($_POST["tweet"]));
     }
-    // header_remove(headers_list()[0]);
-    // header("Refresh:0");
-    $connect=new IndexController();
-    $connect->renderHomeViewConnected("", "", "    <form action=\"./\" method=\"POST\">
-    <input type=\"text\" maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
-    <input type=\"submit\" value=\"Tweeter\" id=\"Tweeter\" name=\"submit_tweet\">
-    </form>");
-    echo "<script type='text/javascript'>
-             $('body').load('http://localhost:8080/public/index.php');
-        </script>";
-
 
     if (isset($_POST["logout"])) {
-
         unset($_SESSION["logged_in"]);
         unset($_SESSION["id"]);
         unset($_SESSION["username"]);
         session_destroy();
-        $logout = new IndexController();
-        header_remove(headers_list());
         header("Refresh:0");
-        // header("Location: accueil.php");
     }
-    // else{
-    //     $home = new IndexController();
-        // $content = $home->renderHomeViewConnected("", "", "    <form action=\"./\" method=\"POST\">
-        // <input type=\"text\" maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
-        // <input type=\"submit\" value=\"Tweeter\" id=\"Tweeter\" name=\"submit_tweet\">
-        // </form>");
-    //     echo $content;
-        
-    //     $logout = new IndexController();
-    //     $logout->redirectToRoute("./index.php",1);
-    // }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["retweet"])) {
+        $retweet = $_POST["message_retweet"];
+        $id = $_SESSION["id"];
+        $id_retweet = $_POST["id_tweet"];
+        $addPicRT = $_POST["addPicRT"];
+
+        $b = new TweetController();
+        $b->createRetweet($id, $retweet, $id_retweet, $addPicRT);
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reply"])) {
+        $reply = $_POST["message_reply"];
+        $id = $_SESSION["id"];
+        $id_reply = $_POST["id_tweet"];
+        $addPicRT = $_POST["addPicReply"];
+
+        $b = new TweetController();
+        $b->createreply($id, $reply, $id_reply, $addPicRT);
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
+        if (isset($_POST["mp"])) {
+            $id_user = $_SESSION["id"];
+            $id_receiver = 9; //IL FAUT changer ça j'ai mis 9 pour test mais il faudra récupérer un id différent selon le receiver
+            $mp = $_POST["mp"];
+
+            $e = new MessageController();
+            $e->createMessage($id_user, $id_receiver, $mp);
+        } else {
+            echo "Vous devez écrire un message.";
+        }
+    }
+
+    if (isset($_POST['search'])) {
+        $search = $_POST['search'];
+
+        if ($search == "") {
+            $tweet = new TweetController();
+            $tweets = $tweet->searchByHashtag($search);
+        } else {
+
+            if ($search[0] === '#') { // Vérification si le premier caractère est un hashtag
+                $tweet = new TweetController();
+                $tweets = $tweet->searchByHashtag($search);
+                // Traiter les résultats de la recherche des tweets
+            } else {
+                $user = new UserController();
+                $result = $user->search($search);
+                // Traiter les résultats de la recherche des profils utilisateur
+            }
+            # code...
+        }
+    }
+}
+
+
+
+// Formulaire de recherche
+//   echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">";
+//   echo "<input type=\"text\" name=\"search\">";
+//   echo "<input type=\"submit\" value=\"Rechercher\">";
+//   echo "</form>";
+
+//   $conn = null;
+
+
+$home = new IndexController();
+if (!isset($_SESSION["logged_in"])) {
+    $home->renderHomeView();
+} else {
+    if (isset($_POST['search'])) {
+        if (isset($tweets)) {
+            # code...
+            $home->renderTweetsSearch($tweets);
+        }
+        if (isset($result)) {
+            # code...
+            $home->renderHomeProfilConnected($result);
+        }
+    } else {
+        $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
+                <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
+                <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
+                </form>");
+    }
 
 }
 

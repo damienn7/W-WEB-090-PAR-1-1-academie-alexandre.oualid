@@ -15,7 +15,29 @@ class IndexController
         $tweets = new TweetModel();
         $tweets = $tweets->getTweets();
 
+
+// $routes = [
+//     '/' => '../view/accueil.php',
+//     '/home_connected' => '../view/accueil_connecte.php',
+//     '/profil' => '../view/profil.php'
+// ];
+
+
+// $url = $_SERVER['REQUEST_URI'];
+
+
+// if (array_key_exists($url, $routes)) {
+
+//     require_once $routes[$url];
+// } else {
+
+//     header('HTTP/1.1 404 Not Found');
+//     echo 'Page non trouvée';
+//     exit;
+// }
+
         include('../view/accueil_connecte.php');
+
 
     }
 
@@ -25,6 +47,41 @@ class IndexController
         $tweets = $tweets->getTweets();
 
         include("../view/accueil.php");
+    }
+
+    public function renderTweetsSearch($tweets_hashtag){
+        include("../view/accueil_connecte.php");
+    }
+
+    public function renderHomeProfilConnected($user){
+        $count=0;
+        if ($user["id_follower"]!="") {
+            $array=explode(",",$user["id_follower"]);
+            foreach ($array as $key => $value) {
+                $count++;
+            }
+            $followers=$count;
+            $count=0;
+        }else {
+            $followers="0";
+        }
+
+        if ($user["id_following"]!="") {
+            $array=explode(",",$user["id_following"]);
+            foreach ($array as $key => $value) {
+                $count++;
+            }
+            $followings=$count;
+            $count=0;
+        }else {
+            $followings="0";
+        }
+
+        $tweets=new TweetController();
+        $tweets_profil=$tweets->getTweetsByUserId($user["id"]);
+
+        
+        include("../view/accueil_connecte.php");
     }
 
     public function isAjax()
