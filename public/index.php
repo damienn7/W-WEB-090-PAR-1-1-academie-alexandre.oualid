@@ -75,7 +75,7 @@ if (isset($_SESSION["logged_in"])) {
 
     //potentiellement a refaire
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["follow"])) {
-        $id_following = $_POST["id"];
+        $id_following = $_POST["id_following"];
         $id_follower = $_SESSION["id"];
 
         $f = new UserController();

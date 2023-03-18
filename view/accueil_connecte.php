@@ -167,7 +167,7 @@
                                 <p style="margin-right:3%;"><?php echo $followers; ?><strong> followers </strong> </p>
                                 <p style="margin-right:3%;"><?php echo $followings; ?><strong> following</strong> </p>
                                 <form action="" method="POST">
-                                    <input type="hidden" name="id_following" value="<?php echo $user["id"] ?>">
+                                    <input type="hidden" name="id_following" value="<?php echo $user["id"]; ?>">
                                     <input type="submit" name="follow" value="Follow" id="btn-follow" style="border-radius: 9999px; padding-right: 5px; padding-left: 5px; background-color: #1DA1F3; color: white;">
                                 </form>
                             </div>

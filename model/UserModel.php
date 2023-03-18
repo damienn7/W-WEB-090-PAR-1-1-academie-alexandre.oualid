@@ -1,4 +1,5 @@
 <?php
+
 namespace App\model;
 
 use \App\model\DatabaseModel;
@@ -19,6 +20,53 @@ class UserModel
     // public function __construct() {
 
     // }
+
+    function checkFollower($id_following,$id_follower)
+    {
+        $db = new DatabaseModel();
+        $db = $db->pdo;
+        
+        $stmt = $db->prepare("SELECT * FROM users WHERE id_follower = :id_follower AND id_following = :id_following");
+        $stmt->bindParam(':id_follower', $id_follower);
+        $stmt->bindParam(':id_following', $id_following);
+        $stmt->execute();
+    }
+
+    function checkFollowing($id_following,$id_follower)
+    {
+        $db = new DatabaseModel();
+        $db = $db->pdo;
+
+        $stmt = $db->prepare("SELECT * FROM users WHERE id_follower = :id_follower AND id_following = :id_following");
+        $stmt->bindParam(':id_follower', $id_follower);
+        $stmt->bindParam(':id_following', $id_following);
+        $stmt->execute();
+    }   
+
+    function setFollow($id_following,$id_follower)
+    {
+        // Vérification si l'utilisateur connecté follow déjà l'utilisateur spécifié
+        $db = new DatabaseModel();
+        $db = $db->pdo;
+        $stmt = $db->prepare("SELECT * FROM users WHERE id_follower = :id_follower AND id_following = :id_following");
+        $stmt->bindParam(':id_follower', $id_follower);
+        $stmt->bindParam(':id_following', $id_following);
+        $stmt->execute();
+        // $stmt->fetch();
+
+        if ($stmt->rowCount() == 0) {
+            // L'utilisateur connecté ne follow pas encore l'utilisateur spécifié, donc on l'ajoute à la table "users"
+            $stmt = $db->prepare("INSERT INTO users (id_follower, id_following) VALUES (:id_follower, :id_following)");
+            $stmt->bindParam(':id_follower', $id_follower);
+            $stmt->bindParam(':id_following', $id_following);
+            $stmt->execute();
+
+            echo "Vous suivez maintenant l'utilisateur avec l'ID $id_following.";
+        } else {
+            // L'utilisateur connecté suit déjà l'utilisateur spécifié
+            echo "Vous suivez déjà l'utilisateur avec l'ID $id_following.";
+        }
+    }
 
 
     function setUser($data)
@@ -84,12 +132,11 @@ class UserModel
             $stmt->execute();
             $user = $stmt->fetch();
         } catch (\Exception $e) {
-            die("Erreur : ".$e->getMessage());
+            die("Erreur : " . $e->getMessage());
             // return $message;
         }
 
         return $user;
-
     }
     private function getDatetime($year, $month, $day): string
     {

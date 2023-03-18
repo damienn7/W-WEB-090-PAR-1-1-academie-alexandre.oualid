@@ -17,9 +17,9 @@ class UserController
     }
 
     //a finir /potentiellement à refaire
-    public function followUser($id){
-        $user = new UserModel();
-
+    public function followUser($id_following,$id_follower){
+        $follow = new UserModel();
+        $follow->setFollow($id_following,$id_follower);
     }
 
     public function getUserInformations($id)
