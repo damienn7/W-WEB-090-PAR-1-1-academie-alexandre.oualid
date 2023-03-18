@@ -41,11 +41,29 @@
                 $user = new App\controller\UserController();
                 $user = $user->getUserInformations($tweet["id_user_tweet"]);
                 $avatar = ($user["avatar"] != NULL) ? $user["avatar"] : "https://cdn.discordapp.com/attachments/1077191464683048980/1080782875521204274/sans_pp.webp";
+                if ($tweet["message_tweet"]!="") {
+                    # code...
+                
                 $link_array = explode("https", $tweet["message_tweet"]);
                 if (isset($link_array[1])) {
-                    $link = "https" . $link_array[1];
-                    $message=str_replace(" $link","",$message);
+
+
+                    $space_arr=explode(" ",$link_array[1]);
+                    if (!isset($space_arr[1])) {
+                        # code...
+                        $link = "https". $link_array[1];
+                        if ($message!="") {
+                            # code...
+                            $message=str_replace(" $link","",$message);
+                        }
+                        // echo $message;
+                    }else{
+                        $link = "https". $space_arr[0];
+                        $message=str_replace(" $link","",$message);
+                        // echo $message;
+                    }
                 }
+            }
                 ?>
 
                 <div class="container container-fluid ">

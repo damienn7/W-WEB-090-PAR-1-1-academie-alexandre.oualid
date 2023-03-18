@@ -53,6 +53,11 @@ class IndexController
         include("../view/accueil_connecte.php");
     }
 
+    public function renderNoResultFound(){
+        $error_not_found=true;
+        include('../view/result_not_found.php');
+    }
+
     public function renderHomeProfilConnected($user){
         $count=0;
         if ($user["id_follower"]!="") {

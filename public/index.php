@@ -86,6 +86,8 @@ if (isset($_SESSION["logged_in"])) {
         }
     }
 
+    $result="";
+    $tweets="";
     if (isset($_POST['search'])) {
         $search = $_POST['search'];
 
@@ -101,6 +103,11 @@ if (isset($_SESSION["logged_in"])) {
             } else {
                 $user = new UserController();
                 $result = $user->search($search);
+
+                if ($result==false) {
+                    $tweet = new TweetController();
+                    $tweets = $tweet->searchByHashtag($search);
+                }
                 // Traiter les résultats de la recherche des profils utilisateur
             }
             # code...
@@ -124,13 +131,22 @@ if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
     if (isset($_POST['search'])) {
-        if (isset($tweets)) {
-            # code...
-            $home->renderTweetsSearch($tweets);
-        }
         if (isset($result)) {
+            if ($result!=false) {
+                $home->renderHomeProfilConnected($result);
+            }
             # code...
-            $home->renderHomeProfilConnected($result);
+            
+        }
+        if (isset($tweets)) {
+            if ($result!=false&&$tweets!=false) {
+                # code...
+                $home->renderTweetsSearch($tweets);
+
+            }else{
+                // $home->renderNoResultFound();
+                
+            }
         }
     } else {
         $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
