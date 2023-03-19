@@ -128,6 +128,27 @@ if (isset($_SESSION["logged_in"])) {
         $user = new UserController();
         $user->updateProfil($_POST);
     }
+
+    if (isset($_POST["profil"])) {
+        $user = new UserController();
+        $result = $user->getUserInformations($_POST["id"]);
+    }
+
+    // if (isset($_POST["like"])) {
+    // }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["follow"])) {
+        $id_following = $_POST["id_following"];
+        $id_follower = $_SESSION["id"];
+        $username = $_POST["username_following"];
+        $new_following = $_SESSION["id_following"];
+        $new_follower = $_POST["followers_list"];
+
+        $f = new UserController();
+        $f->followUser($id_following,$id_follower,$username,$new_following,$new_follower);
+    }
+
+
 }
 
 

@@ -70,7 +70,7 @@
                     <div class="container container-fluid tweet" style="width:500px;">
 
                         <div class="row" style="align-items:center;">
-                            <form action="./" method="post">
+                            <form action="./" method="post" class="row col-10">
                                 <button type="submit"
                                     style="background-image:url('<?php echo $user["avatar"]; ?>');background-size:100% 100%;background-repeat:no-repeat;width:50px;height:50px;border-radius:50%;z-index:100;margin-right:10px;margin-bottom:5px;"
                                     name="profil">
@@ -80,14 +80,14 @@
                                 </h3>
                                 <input type="hidden" name="id" value="<?php echo $user["id"]; ?>">
                             </form>
-                            <form action="./" method="post">
-                                <button type="submit" class="btn-link col-2" name="like" style="text-decoration:none;"
+                            <form action="./" method="post" class="col-2">
+                                <button type="submit" class="btn-link" name="like" style="text-decoration:none;"
                                     value="Like">
                                     <span class="material-symbols-outlined">
                                         favorite
                                     </span>
                                 </button>
-                                <input type="hidden" name="id" value="<?php echo $tweet["id"]; ?>">
+                                <input type="hidden" name="id" value="<?php echo $tweet["id_tweet"]; ?>">
                             </form>
                         </div>
                         <div class="row" style="width:400px;margin:auto;border-bottom:1px solid black;">
@@ -115,7 +115,7 @@
                         <?php if (is_int($tweet["id_retweet"])): ?>
                             <div class="container" style="margin-top:5px;padding:20px;">
                                 <div class="row" style="align-items:center;">
-                                    <form action="./" method="post">
+                                    <form action="./" method="post" class="row col-10">
                                         <button type="submit"
                                             style="background-image:url('<?php echo $user_retweet["avatar"]; ?>');background-size:100% 100%;background-repeat:no-repeat;width:50px;height:50px;border-radius:50%;z-index:100;margin-right:10px;margin-bottom:5px;"
                                             name="profil">
@@ -123,10 +123,10 @@
                                         <h3 class="col-10">
                                             <?php echo $user_retweet["name"]; ?>
                                         </h3>
-                                        <input type="hidden" name="id" value="<?php echo $user_retweet["id_tweet"]; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $user_retweet["id"]; ?>">
                                     </form>
-                                    <form action="./" method="post">
-                                        <button type="submit" class="btn-link col-2" name="like" style="text-decoration:none;"
+                                    <form action="./" method="post" class="col-2">
+                                        <button type="submit" class="btn-link" name="like" style="text-decoration:none;"
                                             value="Like">
                                             <span class="material-symbols-outlined">
                                                 favorite
@@ -213,7 +213,7 @@
                             ?>
                             <div class="container" style="margin-top:5px;padding:10px;margin-left:20px;margin-right:20px;">
                                 <div class="row" style="align-items:center;">
-                                    <form action="./" method="post">
+                                    <form action="./" method="post" class="row col-10">
                                         <button type="submit"
                                             style="background-image:url('<?php echo $user_reply["avatar"]; ?>');background-size:100% 100%;background-repeat:no-repeat;width:50px;height:50px;border-radius:50%;z-index:100;margin-right:10px;margin-bottom:5px;"
                                             name="profil">
@@ -223,8 +223,8 @@
                                         </h3>
                                         <input type="hidden" name="id" value="<?php echo $user_reply["id"]; ?>">
                                     </form>
-                                    <form action="./" method="post">
-                            <button type="submit" class="btn-link col-2" name="like" style="text-decoration:none;" value="Like">
+                                    <form action="./" method="post" class="col-2">
+                            <button type="submit" class="btn-link" name="like" style="text-decoration:none;" value="Like">
                                 <span class="material-symbols-outlined">
                                     favorite
                                 </span>
