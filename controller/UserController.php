@@ -16,10 +16,9 @@ class UserController
         header('Location: http://localhost:8080/view/registerFormView.php');
     }
 
-    //a finir /potentiellement à refaire
-    public function followUser($id_following,$id_follower){
+    public function followUser($id_following,$id_follower,$username,$new_following,$new_follower){
         $follow = new UserModel();
-        $follow->setFollow($id_following,$id_follower);
+        $follow->setFollow($id_following,$id_follower,$username,$new_following,$new_follower);
     }
 
     public function getUserInformations($id)
@@ -43,12 +42,16 @@ class UserController
             $_SESSION['logged_in'] = "logged";
             $_SESSION['username'] = $response["username"];
             $_SESSION['id'] = $response["id"];
+            $_SESSION['id_following'] = $response["id_following"];
+            $_SESSION['id_follower'] = $response["id_follower"];
 
             return "ok";
 
         }
 
-    return "ok";
+    return "nok";
+
+
 
     }
 

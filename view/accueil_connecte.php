@@ -14,6 +14,8 @@
 
             <?php if (!isset($_POST["search"])) : ?>
 
+                <?php $error_not_found = false;
+                unset($error_not_found); ?>
                 <div class="row">
                     <div class="col">
                         <?= $form ?>
@@ -28,8 +30,17 @@
                     $link_array = explode("https", $tweet["message_tweet"]);
                     $message = $tweet["message_tweet"];
                     if (isset($link_array[1])) {
-                        $link = "https" . $link_array[1];
-                        $message = str_replace(" $link", "", $message);
+                        $space_arr = explode(" ", $link_array[1]);
+                        if (!isset($space_arr[1])) {
+                            # code...
+                            $link = "https" . $link_array[1];
+                            $message = str_replace(" $link", "", $message);
+                            // echo $message;
+                        } else {
+                            $link = "https" . $space_arr[0];
+                            $message = str_replace(" $link", "", $message);
+                            // echo $message;
+                        }
                     }
                 ?>
 
@@ -38,24 +49,28 @@
                             <div class="row" style="align-items:center;">
                                 <img src="<?php echo $avatar; ?>" class="col" alt="profile image" style="width:40px;height:auto;padding:10px;border-radius:50%;">
                                 <h3 class="col-10">
-                                    <?php echo $user["name"]; ?>
+                                    <?php echo $user["name"] . "pb"; ?>
                                 </h3>
                             </div>
                             <div class="row">
                                 <?php if (isset($link)) { ?>
                                     <div class="col">
-                                        <p class="message">
+                                        <p class="message" style="width:400px;">
                                             <?= $message ?>
                                         </p>
                                     </div>
                                 <?php } else { ?>
-                                    <p class="message">
-                                    <?php echo $tweet["message_tweet"];
-                                } ?>
-                                    </p>
+                                    <div class="col" style="width:400px;">
+                                        <p class="message">
+                                        <?php echo $tweet["message_tweet"];
+                                    } ?>
+                                        </p>
+                                    </div>
                                     <?php if (isset($link)) { ?>
-                                        <div class="col">
-                                            <img src="<?= $link; ?>" alt="image du tweet">
+                                        <div class="col" style="width:400px;">
+                                            <!-- <img src="" alt="image du tweet"> -->
+                                            <div style="background-image:url('<?= $link; ?>');background-size:100%;height:200px;width:500px;border-radius:15px;">
+                                            </div>
                                         </div>
                                     <?php } ?>
                             </div>
@@ -80,8 +95,9 @@
                 }
 
                 ?>
-            <?php elseif (isset($tweets_hashtag)) : ?>
+            <?php elseif (isset($tweets_hashtag) && isset($_POST["search"])) : ?>
                 <?php
+                $error_not_found = false;
                 foreach ($tweets_hashtag as $key => $tweet_search) {
                     $user_search = new App\controller\UserController();
                     $user_search = $user_search->getUserInformations($tweet_search["id_user_tweet"]);
@@ -102,6 +118,7 @@
                         }
                     }
                 ?>
+                    <?php unset($error_not_found); ?>
 
                     <div class="container container-fluid ">
                         <form action="./" method="POST">
@@ -113,16 +130,18 @@
                             </div>
                             <div class="row">
                                 <?php if (isset($link)) { ?>
-                                    <div class="col">
+                                    <div class="col" style="width:400px;">
                                         <p class="message">
                                             <?= $message ?>
                                         </p>
                                     </div>
                                 <?php } else { ?>
-                                    <p class="message">
-                                    <?php echo $tweet_search["message_tweet"];
-                                } ?>
-                                    </p>
+                                    <div class="col" style="width:400px;">
+                                        <p class="message">
+                                        <?php echo $tweet_search["message_tweet"];
+                                    } ?>
+                                        </p>
+                                    </div>
                                     <?php if (isset($link)) { ?>
                                         <div class="col" style="width:400px;">
                                             <!-- <img src="" alt="image du tweet"> -->
@@ -152,7 +171,9 @@
                 }
 
                 ?>
-            <?php else : ?>
+
+
+            <?php elseif (isset($user)) : ?>
                 <div class="container">
                     <div class="header">
                         <div class="photo" style="background-image:url('<?php echo $user["banner"]; ?>');background-size:100%;height:200px;width:500px;">
@@ -161,17 +182,21 @@
 
                         </div>
                         <div class="info" style="top:300px;position: absolute;text-align: right;justify-content:space-between;">
-                            <h1><?php echo $user["name"]; ?></h1>
+                            <h1><?php $error_not_found = false;
+                                echo $user["name"]; ?></h1>
                             <div class="row" style="width:500px;">
                                 <p style="margin-right:3%;"><?php echo "@" . $user["username"]; ?></p>
                                 <p style="margin-right:3%;"><?php echo $followers; ?><strong> followers </strong> </p>
                                 <p style="margin-right:3%;"><?php echo $followings; ?><strong> following</strong> </p>
                                 <form action="" method="POST">
+                                    <input type="hidden" name="followers_list" value="<?php echo $user["id_follower"]; ?>">
+                                    <input type="hidden" name="following-list" value="<?php echo $user["id_following"]; ?>">
                                     <input type="hidden" name="id_following" value="<?php echo $user["id"]; ?>">
+                                    <input type="hidden" name="username_following" value="<?php echo $user["username"]; ?>">
                                     <input type="submit" name="follow" value="Follow" id="btn-follow" style="border-radius: 9999px; padding-right: 5px; padding-left: 5px; background-color: #1DA1F3; color: white;">
                                 </form>
                             </div>
-                            <div class="content" style="text-align:left;margin-top:3%;font-weight:600;">
+                            <div class="content" style="text-align:left;margin-top:3%;font-weight:600;width:500px;">
                                 <p><?php echo $user["bio"]; ?></p>
 
                             </div>
@@ -191,7 +216,7 @@
 
                                     <div class="container" style="width:500px;">
                                         <form action="./" method="POST">
-                                            <div class="row" style="align-items:center;">
+                                            <div class="row" style="align-items:center;width:500px;">
                                                 <!-- <img src="" class="col" alt="profile image"
                             style="width:40px;height:auto;padding:10px;border-radius:50%;"> -->
                                                 <div class="col-6">
@@ -208,18 +233,18 @@
                                             </div>
                                             <div class="row" style="width:500px;">
                                                 <?php if (isset($link)) { ?>
-                                                    <div class="col">
+                                                    <div class="col" style="width:400px;">
                                                         <p class="message">
                                                             <?= $message ?>
                                                         </p>
                                                     </div>
                                                 <?php } else { ?>
-                                                    <p class="message">
+                                                    <p class="message" style="width:400px;">
                                                     <?php echo $tweet["message_tweet"];
                                                 } ?>
                                                     </p>
                                                     <?php if (isset($link)) { ?>
-                                                        <div class="col">
+                                                        <div class="col" style="width:400px;">
                                                             <!-- <img src="" alt="image du tweet" style="width:500px;"> -->
                                                             <div style="background-image:url('<?= $link ?>');background-size:100%;height:200px;width:500px;border-radius:20px;">
                                                             </div>

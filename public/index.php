@@ -54,6 +54,17 @@ if (isset($_SESSION["logged_in"])) {
         header("Refresh:0");
     }
 
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["follow"])) {
+        $id_following = $_POST["id_following"];
+        $id_follower = $_SESSION["id"];
+        $username = $_POST["username_following"];
+        $new_following = $_SESSION["id_following"];
+        $new_follower = $_SESSION["id_follower"];
+
+        $f = new UserController();
+        $f->followUser($id_following,$id_follower,$username,$new_following,$new_follower);
+    }
+
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["retweet"])) {
         $retweet = $_POST["message_retweet"];
         $id = $_SESSION["id"];
@@ -73,15 +84,6 @@ if (isset($_SESSION["logged_in"])) {
         $b->createreply($id, $reply, $id_reply, $addPicRT);
     }
 
-    //potentiellement a refaire
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["follow"])) {
-        $id_following = $_POST["id_following"];
-        $id_follower = $_SESSION["id"];
-
-        $f = new UserController();
-        $f->followUser($id_following,$id_follower);
-    }
-
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
         if (isset($_POST["mp"])) {
             $id_user = $_SESSION["id"];
@@ -95,6 +97,8 @@ if (isset($_SESSION["logged_in"])) {
         }
     }
 
+    $result="";
+    $tweets="";
     if (isset($_POST['search'])) {
         $search = $_POST['search'];
 
@@ -110,6 +114,11 @@ if (isset($_SESSION["logged_in"])) {
             } else {
                 $user = new UserController();
                 $result = $user->search($search);
+
+                if ($result==false) {
+                    $tweet = new TweetController();
+                    $tweets = $tweet->searchByHashtag($search);
+                }
                 // Traiter les résultats de la recherche des profils utilisateur
             }
             # code...
@@ -133,13 +142,22 @@ if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
     if (isset($_POST['search'])) {
-        if (isset($tweets)) {
-            # code...
-            $home->renderTweetsSearch($tweets);
-        }
         if (isset($result)) {
+            if ($result!=false) {
+                $home->renderHomeProfilConnected($result);
+            }
             # code...
-            $home->renderHomeProfilConnected($result);
+            
+        }
+        if (isset($tweets)) {
+            if ($result!=false&&$tweets!=false) {
+                # code...
+                $home->renderTweetsSearch($tweets);
+
+            }else{
+                // $home->renderNoResultFound();
+                
+            }
         }
     } else {
         $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
