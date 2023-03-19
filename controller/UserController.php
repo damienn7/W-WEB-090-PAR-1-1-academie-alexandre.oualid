@@ -50,9 +50,6 @@ class UserController
         }
 
     return "nok";
-
-
-
     }
 
     public function createUser($data_received)

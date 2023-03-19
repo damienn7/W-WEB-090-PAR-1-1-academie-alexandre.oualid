@@ -59,7 +59,7 @@ if (isset($_SESSION["logged_in"])) {
         $id_follower = $_SESSION["id"];
         $username = $_POST["username_following"];
         $new_following = $_SESSION["id_following"];
-        $new_follower = $_SESSION["id_follower"];
+        $new_follower = $_POST["followers_list"];
 
         $f = new UserController();
         $f->followUser($id_following,$id_follower,$username,$new_following,$new_follower);

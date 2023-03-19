@@ -31,15 +31,22 @@ class UserModel
 
             
             if ($stmt->rowCount() == 0) {
+                if($new_following == NULL){
+                    $new_following = $id_following;
+                }
                 $new_following = $new_following.",".$id_following;
                 // Ajouter l'utilisateur connecté comme following
                 $stmt = $db->prepare("UPDATE users SET id_following=:id_following WHERE id=:id_follower");
                 $stmt->bindParam(':id_follower', $id_follower);
                 $stmt->bindParam(':id_following', $new_following);
                 $stmt->execute();
-
-                $new_follower = $new_follower.",".$id_follower;
-                // Ajouter l'utilisateur connecté comme follower à l'utilisateur following
+                if($new_follower == NULL){
+                    $new_follower = $id_follower;
+                }
+                else{
+                    $new_follower = $new_follower.",".$id_follower;
+                }
+                // Ajouter l'utilisateur connecté comme follower à l'utilisateur que je follow
                 $stmt = $db->prepare("UPDATE users SET id_follower=:id_follower WHERE id=:id_following");
                 $stmt->bindParam(':id_follower', $new_follower);
                 $stmt->bindParam(':id_following', $id_following);
