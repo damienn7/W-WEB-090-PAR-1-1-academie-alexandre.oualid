@@ -6,6 +6,16 @@
                             <a href="#" id="home"><img src="../public/img/twitter_logo.png" alt="logo de twitter"
                             id="oiseaulogo" class="logos img-icon"></a>
                         </div>
+
+                        <div class="light">
+                            <h4>Choississez votre thème :</h4>
+                            <select id="theme-select">
+                                <option value="light" data-icon="img/sun-svgrepo-com.svg">Clair</option>
+                                <option value="dark" data-icon="/img/moon-svgrepo-com.svg">Sombre</option>
+                            </select>
+                            <button id="apply-theme-btn">Appliquer</button>
+                        </div>
+                        
                         <div class="row">
                             <a href="#" class="row" id="home"><img src="../public/img/logo_maison.png" alt="logo de l'Accueil"
                             class="logos img-icon"><span>Accueil</span></a>

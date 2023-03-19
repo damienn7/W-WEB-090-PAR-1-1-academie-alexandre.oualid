@@ -174,4 +174,13 @@ window.onload = function () {
         });
     });
 
+    const themeSelect = document.getElementById('theme-select');
+    const applyThemeBtn = document.getElementById('apply-theme-btn');
+
+    // Ajouter un gestionnaire d'événements au clic sur le bouton "Appliquer"
+    applyThemeBtn.addEventListener('click', function() {
+      const selectedTheme = themeSelect.value;
+      document.body.className = selectedTheme;
+    });
+    
 }
