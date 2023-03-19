@@ -58,19 +58,17 @@ if (isset($_SESSION["logged_in"])) {
         $retweet = $_POST["message_retweet"];
         $id = $_SESSION["id"];
         $id_retweet = $_POST["id_tweet"];
-        $addPicRT = $_POST["addPicRT"];
 
         $b = new TweetController();
-        $b->createRetweet($id, $retweet, $id_retweet, $addPicRT);
+        $b->createRetweet($id, $retweet, $id_retweet);
     }
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reply"])) {
         $reply = $_POST["message_reply"];
         $id = $_SESSION["id"];
         $id_reply = $_POST["id_tweet"];
-        $addPicRT = $_POST["addPicReply"];
 
         $b = new TweetController();
-        $b->createreply($id, $reply, $id_reply, $addPicRT);
+        $b->createreply($id, $reply, $id_reply);
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
@@ -86,12 +84,12 @@ if (isset($_SESSION["logged_in"])) {
         }
     }
 
-    $result="";
-    $tweets="";
+    $result = "";
+    $tweets = "";
     if (isset($_POST['search'])) {
         $search = $_POST['search'];
 
-        if ($search == "") {
+        if ($search === "") {
             $tweet = new TweetController();
             $tweets = $tweet->searchByHashtag($search);
         } else {
@@ -100,18 +98,35 @@ if (isset($_SESSION["logged_in"])) {
                 $tweet = new TweetController();
                 $tweets = $tweet->searchByHashtag($search);
                 // Traiter les résultats de la recherche des tweets
+                // var_dump($tweets);
+            } elseif ($search[0] === '@') {
+                $tweet = new TweetController();
+                $tweets = $tweet->searchByHashtag($search);
             } else {
+
                 $user = new UserController();
                 $result = $user->search($search);
 
-                if ($result==false) {
+                if ($result === false) {
                     $tweet = new TweetController();
                     $tweets = $tweet->searchByHashtag($search);
                 }
+
+
                 // Traiter les résultats de la recherche des profils utilisateur
             }
             # code...
         }
+    }
+
+    if (isset($_POST["my_profile"])) {
+        $user = new UserController();
+        $user_update = $user->search($_POST["my_profile"]);
+    }
+
+    if (isset($_POST["update_profile"])) {
+        $user = new UserController();
+        $user->updateProfil($_POST);
     }
 }
 
@@ -127,30 +142,30 @@ if (isset($_SESSION["logged_in"])) {
 
 
 $home = new IndexController();
+
 if (!isset($_SESSION["logged_in"])) {
     $home->renderHomeView();
 } else {
     if (isset($_POST['search'])) {
         if (isset($result)) {
-            if ($result!=false) {
-                $home->renderHomeProfilConnected($result);
+            if (is_array($result)) {
+                $state_error = false;
+                $home->renderHomeProfilConnected($result, $state_error);
             }
-            # code...
-            
-        }
-        if (isset($tweets)) {
-            if ($result!=false&&$tweets!=false) {
-                # code...
-                $home->renderTweetsSearch($tweets);
 
-            }else{
-                // $home->renderNoResultFound();
-                
+        }
+
+        if (isset($tweets)) {
+            if (is_array($tweets)) {
+                $home->renderTweetsSearch($tweets);
+                $state_error = true;
             }
         }
-    } else {
-        $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\">
-                <input type=\"text\" style='padding: 4px;' maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\">
+    } elseif(isset($_POST["my_profile"])){
+        $home->renderUpdateProfil($user_update);
+    }else{
+        $home->renderHomeViewConnected("", "", "<form action=\"./\" method=\"POST\"  style=\"margin:20px;\">
+                <input type=\"text\" maxlength=\"140\" name=\"tweet\" id=\"tweet\" autocomplete=\"off\" style=\"margin:20px;padding:5px;border-radius:20px;border:2px solid #1da1f3;background-color:rgb(214, 209, 209);\">
                 <input type=\"submit\" value=\"Tweeter\" class='btn btn-blue-twitter' id=\"Tweeter\" name=\"submit_tweet\">
                 </form>");
     }

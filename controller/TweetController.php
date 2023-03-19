@@ -23,14 +23,20 @@ class TweetController
         
     }
 
-    public function createRetweet($id,$retweet,$id_retweet,$addPicRT){
-        $tweetMessage = new TweetModel();
-        $tweetMessage->setRetweet($id,$retweet,$id_retweet,$addPicRT);
+    public function getReply($id){
+        $tweets = new TweetModel();
+        $tweets = $tweets->getReply($id);
+        return $tweets;
     }
 
-    public function createReply($id,$reply,$id_reply,$addPicReply){
+    public function createRetweet($id,$retweet,$id_retweet){
+        $tweetMessage = new TweetModel();
+        $tweetMessage->setRetweet($id,$retweet,$id_retweet);
+    }
+
+    public function createReply($id,$reply,$id_reply){
         $replyMessage = new TweetModel();
-        $replyMessage->setReply($id,$reply,$id_reply,$addPicReply);
+        $replyMessage->setReply($id,$reply,$id_reply);
     }
 
     public function tweetLink($msgTweet){
@@ -42,7 +48,7 @@ class TweetController
     public function searchByHashtag($hashtag)
     {
         $tweet=new TweetModel();
-        $tweets=$tweet-> searchByHashtag(htmlspecialchars($hashtag));
+        $tweets=$tweet->searchByHashtag(htmlspecialchars($hashtag));
     
         return $tweets;
     }

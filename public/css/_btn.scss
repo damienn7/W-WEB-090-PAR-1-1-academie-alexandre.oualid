@@ -10,7 +10,7 @@
 
 @mixin btn($display:inline-block,$font-weight:400,$padding-x:0.75rem,$padding-y:0.375rem,$color:#212529,$bg:transparent,$border-color:transparent){
     @extend %btn;
-    border-radius: $padding-y;
+    border-radius: 20px;
     color: $color;
     padding: $padding-y $padding-x;
     border: 2px solid $border-color;

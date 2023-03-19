@@ -20,6 +20,72 @@ class UserModel
 
     // }
 
+    //a finir /potentiellement à refaire
+    public function followUser($id)
+    {
+        $user = new UserModel();
+
+    }
+
+    public function updateUser($user)
+    {
+        $set = "";
+
+            if(isset($user["banner"]) && !empty($user["banner"])){
+                $banner = htmlspecialchars($user["banner"]);
+                $set .= "banner='$banner',";
+            }
+            
+            if ($user["password"]!=="") {
+                $password = htmlspecialchars($user["password"]);
+                
+                    $salt = "vive le projet tweet_academy";
+                    $password_hash = hash('ripemd160', $salt . $password);
+                    $set .= "password='$password_hash',";
+                # code...
+            }
+            
+            if (isset($user["avatar"]) && !empty($user["avatar"])) {
+                
+                    $avatar = htmlspecialchars($user["avatar"]);
+                    $set .= "avatar='$avatar',";
+                # code...
+            }
+            
+            if ( isset($user["bio"]) && !empty($user["bio"])) {
+                # code...
+                $bio = htmlspecialchars($user["bio"]);
+                $set .= "bio='$bio',";
+            }
+            
+            if (isset($user["city"]) && !empty($user["city"])) {
+                # code...
+                $city = htmlspecialchars($user["city"]);
+                $set .= "city='$city',";
+            }
+
+        if ($set === "") {
+            return;
+        } else {
+            $set=substr($set,0,-1);
+            // echo $set;
+            // var_dump($_POST);
+            try {
+
+                $query="update users set $set where id=:id;";
+                // echo $query;
+                $db = new DatabaseModel();
+                $db = $db->pdo;
+                $stmt = $db->prepare($query);
+                // $stmt->bindParam(':set', $set);
+                $stmt->bindParam(':id', $_SESSION["id"]);
+                $stmt->execute();
+            } catch (\PDOException $e) {
+                die("Erreur : ".$e->getMessage());
+            }
+
+        }
+    }
 
     function setUser($data)
     {
@@ -84,7 +150,7 @@ class UserModel
             $stmt->execute();
             $user = $stmt->fetch();
         } catch (\Exception $e) {
-            die("Erreur : ".$e->getMessage());
+            die("Erreur : " . $e->getMessage());
             // return $message;
         }
 

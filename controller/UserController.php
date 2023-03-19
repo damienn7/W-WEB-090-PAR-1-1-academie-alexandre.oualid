@@ -3,18 +3,11 @@
 namespace App\controller;
 
 use App\model\UserModel;
-use App\controller\IndexController;
 
 class UserController
 {
 
     private $data = [];
-
-
-    private function renderRegisterView()
-    {
-        header('Location: http://localhost:8080/view/registerFormView.php');
-    }
 
     public function getUserInformations($id)
     {
@@ -32,7 +25,7 @@ class UserController
         $salt = "vive le projet tweet_academy";
         $salted_password = $salt . $password;
         $hashed_password = hash('ripemd160', $salted_password);
-        if ($hashed_password === $response["password"]) {
+        if ($hashed_password === $response["password"]&&$response["disabled"]===0) {
             // session_start();
             $_SESSION['logged_in'] = "logged";
             $_SESSION['username'] = $response["username"];
@@ -52,9 +45,16 @@ class UserController
     {
         $content = "";
         $email = htmlspecialchars($data_received["email"]);
+        
+
         $password = htmlspecialchars($data_received["password"]);
         $name = htmlspecialchars($data_received["name"]);
         $username = htmlspecialchars($data_received["username"]);
+        $user = new UserModel();
+        $response = $user->getUserByUsername($username);
+        if (isset($response["username"])) {
+            return;
+        }
         $birthdate = $data_received["birthdate"];
         $gender = htmlspecialchars($data_received["gender"]);
         $city = htmlspecialchars($data_received["city"]);
@@ -73,6 +73,11 @@ class UserController
         $infos=$user->getUserByUsername($search);
 
         return $infos;
+    }
+
+    public function updateProfil($post=[]){
+        $update = new UserModel();
+        $update->updateUser($post);
     }
 
     public function isAjax()

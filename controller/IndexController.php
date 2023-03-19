@@ -46,7 +46,11 @@ class IndexController
         $tweets = new TweetModel();
         $tweets = $tweets->getTweets();
 
-        include("../view/accueil.php");
+        include_once("../view/accueil.php");
+    }
+
+    public function renderUpdateProfil($user_update){
+        include("../view/accueil_connecte.php");
     }
 
     public function renderTweetsSearch($tweets_hashtag){
@@ -55,10 +59,14 @@ class IndexController
 
     public function renderNoResultFound(){
         $error_not_found=true;
-        include('../view/result_not_found.php');
+        include('../view/accueil_connecte.php');
+        return $error_not_found;
     }
 
-    public function renderHomeProfilConnected($user){
+    public function renderHomeProfilConnected($user,$error_not_found){
+        if ($user!=false) {
+            unset($error_not_found);
+        
         $count=0;
         if ($user["id_follower"]!="") {
             $array=explode(",",$user["id_follower"]);
@@ -84,6 +92,7 @@ class IndexController
 
         $tweets=new TweetController();
         $tweets_profil=$tweets->getTweetsByUserId($user["id"]);
+    }
 
         
         include("../view/accueil_connecte.php");

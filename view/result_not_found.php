@@ -3,7 +3,7 @@
 
         <?php include("../view/header.php"); ?>
         <main class="col-6 middle blur">
-            <div  style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;z-index:101;">
+            <div style="position:fixed;top:0;background-color:white;width:100%;padding:0.5rem;z-index:101;">
             <!-- <h2>Accueil</h2> -->
                 <form action="index.php" method="post">
                     <label for="search">Rechercher :</label>
@@ -11,8 +11,13 @@
                     <input type="submit" value="Rechercher">
                 </form>
             </div>
-
+            <?php if(!isset($user)): ?>
                 <div class="alert-warning" style="margin-top:20px;">Pas de resultat pour cette recherche ...</div>
+            <?php else: ?>
+                <script type="text/javascript">window.onload=function(){if(document.getElementsByClassName("alert-warning")[0]){
+                    document.getElementsByClassName("alert-warning")[0].style.display="none";
+                }}</script>
+            <?php endif; ?>
         </main>
         <?php if (isset($_SESSION["logged_in"])): ?>
             <footer class="col blocks blur logout">
