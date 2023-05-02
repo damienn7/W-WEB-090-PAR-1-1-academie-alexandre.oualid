@@ -49,7 +49,39 @@ class TweetModel
 
     public function getReply($id){
         try {
-            $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id where tweet.id_reply_tweet = :id order by tweet.date_send desc limit 10;";
+            $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\",tweet.id_user as \"id_user_tweet\", t.message as \"message_retweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id where tweet.id_reply_tweet = :id order by tweet.date_send asc limit 10;";
+            $db = new DatabaseModel();
+            $db=$db->pdo;
+            $statement=$db->prepare($query);
+            $statement->bindParam(':id',$id,\PDO::PARAM_INT);
+            $statement->execute();
+            $tweets=$statement->fetchAll();
+        } catch (\Exception $e) {
+            die("Erreur : ".$e->getMessage());
+        }
+
+        return $tweets;
+    }
+
+    public function getRetweetCount($id){
+        try {
+            $query = "select count(*) from tweet where tweet.id_retweet = :id and tweet.id_retweet is not null;";
+            $db = new DatabaseModel();
+            $db=$db->pdo;
+            $statement=$db->prepare($query);
+            $statement->bindParam(':id',$id,\PDO::PARAM_INT);
+            $statement->execute();
+            $tweets=$statement->fetchAll();
+        } catch (\Exception $e) {
+            die("Erreur : ".$e->getMessage());
+        }
+
+        return $tweets;
+    }
+
+    public function getReplyCount($id){
+        try {
+            $query = "select count(*) from tweet where tweet.id_reply_tweet = :id and tweet.id_reply_tweet is not null;";
             $db = new DatabaseModel();
             $db=$db->pdo;
             $statement=$db->prepare($query);
@@ -119,7 +151,7 @@ class TweetModel
             //code...
         $db = new DatabaseModel();
         $db=$db->pdo;
-        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE t.message LIKE '%$hashtag%' or tweet.message LIKE '%$hashtag%' order by tweet.date_send desc limit 10";
+        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE t.message LIKE '%$hashtag%' or tweet.message LIKE '%$hashtag%' and tweet.id_reply_tweet IS NULL order by tweet.date_send desc limit 10";
 
         $statement=$db->prepare($query);
         $statement->execute();
@@ -137,7 +169,7 @@ class TweetModel
             //code...
         $db = new DatabaseModel();
         $db=$db->pdo;
-        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE tweet.id_user=:id order by tweet.date_send desc limit 10;";
+        $query = "select tweet.id as \"id_tweet\",tweet.message as \"message_tweet\",tweet.date_send as \"date_tweet\", t.message as \"message_retweet\",tweet.id_user as \"id_user_tweet\",t.id_user as \"id_user_retweet\",t.date_send as \"date_send_retweet\", t.id as \"id_retweet\" from tweet left outer join tweet as t on tweet.id_retweet = t.id WHERE tweet.id_user=:id and tweet.id_reply_tweet IS NULL order by tweet.date_send desc limit 10;";
         $statement=$db->prepare($query);
         $statement->bindParam("id",$id_user,\PDO::PARAM_INT);
         $statement->execute();

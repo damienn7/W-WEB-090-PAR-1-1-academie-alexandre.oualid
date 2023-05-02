@@ -29,6 +29,18 @@ class TweetController
         return $tweets;
     }
 
+    public function getReplyCount($id){
+        $tweets = new TweetModel();
+        $tweets = $tweets->getReplyCount($id);
+        return $tweets;
+    }
+
+    public function getRetweetCount($id){
+        $tweets = new TweetModel();
+        $tweets = $tweets->getRetweetCount($id);
+        return $tweets;
+    }
+
     public function createRetweet($id,$retweet,$id_retweet){
         $tweetMessage = new TweetModel();
         $tweetMessage->setRetweet($id,$retweet,$id_retweet);

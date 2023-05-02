@@ -46,6 +46,8 @@ class IndexController
         $tweets = new TweetModel();
         $tweets = $tweets->getTweets();
 
+        
+
         include_once("../view/accueil.php");
     }
 

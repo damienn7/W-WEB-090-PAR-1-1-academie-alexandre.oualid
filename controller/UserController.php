@@ -75,6 +75,16 @@ class UserController
         return $infos;
     }
 
+    public function followUser($id_following,$id_follower,$new_following,$new_follower){
+        $follow = new UserModel();
+        $follow->setFollow($id_following,$id_follower,$new_following,$new_follower);
+    }
+
+    public function unfollowUser($id_following,$id_follower,$new_following,$new_follower){
+        $follow = new UserModel();
+        $follow->unsetFollow($id_following,$id_follower,$new_following,$new_follower);
+    }
+
     public function updateProfil($post=[]){
         $update = new UserModel();
         $update->updateUser($post);

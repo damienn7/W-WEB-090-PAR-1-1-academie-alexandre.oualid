@@ -1,4 +1,5 @@
 <?php
+use App\Controller\LikeController;
 use App\Controller\MessageController;
 
 session_start();
@@ -15,6 +16,8 @@ require_once '../model/AutoloaderModel.php';
 require_once '../controller/IndexController.php';
 require_once '../controller/TweetController.php';
 require_once '../model/TweetModel.php';
+require_once '../controller/LikeController.php';
+require_once '../model/LikeModel.php';
 require_once '../model/UserModel.php';
 require_once '../model/DatabaseModel.php';
 require_once '../model/ConfigDbModel.php';
@@ -51,13 +54,13 @@ if (isset($_SESSION["logged_in"])) {
         unset($_SESSION["id"]);
         unset($_SESSION["username"]);
         session_destroy();
-        header("Refresh:0");
+        // header("Refresh:0");
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["retweet"])) {
         $retweet = $_POST["message_retweet"];
         $id = $_SESSION["id"];
-        $id_retweet = $_POST["id_tweet"];
+        $id_retweet = $_POST["id_retweet"];
 
         $b = new TweetController();
         $b->createRetweet($id, $retweet, $id_retweet);
@@ -68,7 +71,7 @@ if (isset($_SESSION["logged_in"])) {
         $id_reply = $_POST["id_tweet"];
 
         $b = new TweetController();
-        $b->createreply($id, $reply, $id_reply);
+        $b->createReply($id, $reply, $id_reply);
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["envoyer"])) {
@@ -134,18 +137,33 @@ if (isset($_SESSION["logged_in"])) {
         $result = $user->getUserInformations($_POST["id"]);
     }
 
-    // if (isset($_POST["like"])) {
-    // }
+    if (isset($_POST["like"])) {
+        $like = new LikeController();
+        $like->setLike($_POST["id"],$_SESSION["id"]);
+    }
+
+    if (isset($_POST["unlike"])) {
+        $like = new LikeController();
+        $like->deleteLike($_POST["id"],$_SESSION["id"]);
+    }
+    $new_following=[];
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["follow"])) {
         $id_following = $_POST["id_following"];
         $id_follower = $_SESSION["id"];
-        $username = $_POST["username_following"];
-        $new_following = $_SESSION["id_following"];
+        $new_following = $_POST["following-list"];
         $new_follower = $_POST["followers_list"];
-
         $f = new UserController();
-        $f->followUser($id_following,$id_follower,$username,$new_following,$new_follower);
+        $f->followUser($id_following,$id_follower,$new_following,$new_follower);
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["unfollow"])) {
+        $id_following = $_POST["id_following"];
+        $id_follower = $_SESSION["id"];
+        $new_following = $_POST["following-list"];
+        $new_follower = $_POST["followers_list"];
+        $f = new UserController();
+        $f->unfollowUser($id_following,$id_follower,$new_following,$new_follower);
     }
 
 

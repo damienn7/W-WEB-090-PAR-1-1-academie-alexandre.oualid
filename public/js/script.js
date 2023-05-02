@@ -17,14 +17,14 @@ window.onload = function () {
         blur[0].style.filter="blur(5px)";
         blur[1].style.filter="blur(5px)";
         blur[2].style.filter="blur(5px)";
-        // blur[3].style.filter="blur(5px)";
+        blur[3].style.filter="blur(5px)";
         onkeyup = function (event) {
             if (event.key === "Escape") {
                 register.style.display = "none";
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             }
         }
 
@@ -33,7 +33,7 @@ window.onload = function () {
             blur[0].style.filter="";
             blur[1].style.filter="";
             blur[2].style.filter="";
-            // blur[3].style.filter="";
+            blur[3].style.filter="";
         })
 
         register_content.addEventListener("mouseover", (event) => {
@@ -42,7 +42,7 @@ window.onload = function () {
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             })
 
 
@@ -55,14 +55,14 @@ window.onload = function () {
         blur[0].style.filter="blur(5px)";
         blur[1].style.filter="blur(5px)";
         blur[2].style.filter="blur(5px)";
-        // blur[3].style.filter="blur(5px)";
+        blur[3].style.filter="blur(5px)";
         onkeyup = function (event) {
             if (event.key === "Escape") {
                 register.style.display = "none";
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             }
         }
 
@@ -71,7 +71,7 @@ window.onload = function () {
             blur[0].style.filter="";
             blur[1].style.filter="";
             blur[2].style.filter="";
-            // blur[3].style.filter="";
+            blur[3].style.filter="";
         })
 
         register_content.addEventListener("mouseover", (event) => {
@@ -80,7 +80,7 @@ window.onload = function () {
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             })
 
 
@@ -103,14 +103,14 @@ window.onload = function () {
         blur[0].style.filter="blur(5px)";
         blur[1].style.filter="blur(5px)";
         blur[2].style.filter="blur(5px)";
-        // blur[3].style.filter="blur(5px)";
+        blur[3].style.filter="blur(5px)";
         onkeyup = function (event) {
             if (event.key === "Escape") {
                 login.style.display = "none";
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             }
         }
 
@@ -119,7 +119,7 @@ window.onload = function () {
             blur[0].style.filter="";
             blur[1].style.filter="";
             blur[2].style.filter="";
-            // blur[3].style.filter="";
+            blur[3].style.filter="";
         })
 
         login_content.addEventListener("mouseover", (event) => {
@@ -128,7 +128,7 @@ window.onload = function () {
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             })
 
 
@@ -141,14 +141,14 @@ window.onload = function () {
         blur[0].style.filter="blur(5px)";
         blur[1].style.filter="blur(5px)";
         blur[2].style.filter="blur(5px)";
-        // blur[3].style.filter="blur(5px)";
+        blur[3].style.filter="blur(5px)";
         onkeyup = function (event) {
             if (event.key === "Escape") {
                 login.style.display = "none";
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             }
         }
 
@@ -157,7 +157,7 @@ window.onload = function () {
             blur[0].style.filter="";
             blur[1].style.filter="";
             blur[2].style.filter="";
-            // blur[3].style.filter="";
+            blur[3].style.filter="";
         })
 
         login_content.addEventListener("mouseover", (event) => {
@@ -166,11 +166,8 @@ window.onload = function () {
                 blur[0].style.filter="";
                 blur[1].style.filter="";
                 blur[2].style.filter="";
-                // blur[3].style.filter="";
+                blur[3].style.filter="";
             })
-
-
-            console.log("test_over")
         });
     });
 
